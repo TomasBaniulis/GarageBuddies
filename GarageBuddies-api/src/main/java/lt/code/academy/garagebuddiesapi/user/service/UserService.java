@@ -35,7 +35,7 @@ public class UserService {
 
     public void createUser (User user){
         Set<Car> cars = new HashSet<>();
-        Set<Garage> garages = new HashSet<>();
+        Set<ObjectId> garages = new HashSet<>();
         Set < RepairBooking> bookings = new HashSet<>();
         user.setCars(cars);
         user.setFavouriteGarages(garages);
