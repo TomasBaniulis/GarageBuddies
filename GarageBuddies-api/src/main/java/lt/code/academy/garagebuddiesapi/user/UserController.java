@@ -28,7 +28,7 @@ public class UserController {
         return userService.showAllUsers();}
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewUser(User user){
+    public void createNewUser(@RequestBody User user){
         userService.createUser(user);
     }
     @PutMapping(value = USER, consumes = MediaType.APPLICATION_JSON_VALUE)
