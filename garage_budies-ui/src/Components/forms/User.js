@@ -82,14 +82,6 @@ const User = () => (
                                                     name="email"
                                                     label="Email"
                                 ></TextInputComponent>
-                                <TextInputComponent error={props.touched.password && !!props.errors.password}
-                                                    name="password"
-                                                    label="Password"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.repeatPassword && !!props.errors.repeatPassword}
-                                                    name="repeatPassword"
-                                                    label="Password confirmation"
-                                ></TextInputComponent>
                                 <TextInputComponent error={props.touched.phoneNumber && !!props.errors.phoneNumber}
                                                     name="phoneNumber"
                                                     label="Phone number"
@@ -106,6 +98,16 @@ const User = () => (
                                                     name="town"
                                                     label="Town"
                                 ></TextInputComponent>
+                                <TextInputComponent error={props.touched.password && !!props.errors.password}
+                                                name="password"
+                                                label="Password"
+                                 ></TextInputComponent>
+                                <TextInputComponent error={props.touched.repeatPassword && !!props.errors.repeatPassword}
+                                                name="repeatPassword"
+                                                label="Password confirmation"
+                                 ></TextInputComponent>
+
+
                         </Stack>
                             <Typography sx={{textAlign:'right', mt:2}}>
                                     props.isSubmitting ? <CircularProgress/> :
