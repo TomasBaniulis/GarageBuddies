@@ -11,9 +11,7 @@ import org.bson.types.ObjectId;
 public class Address {
     private ObjectId Id;
     private String buildingNumber;
-    private String flatNumber;
     private String street;
     private String town;
-    private String postCode;
 
 }
