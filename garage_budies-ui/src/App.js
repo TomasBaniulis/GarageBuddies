@@ -1,9 +1,13 @@
-import User from "./Components/forms/User";
+import {BrowserRouter} from "react-router-dom";
+import Content from "./components/content/Content";
+import Dashboard from "./components/Dashboard/DashBoard";
 
 function App() {
   return (
     < >
-      <User/>
+        <BrowserRouter>
+      <Dashboard/>
+        </BrowserRouter>
     </>
   );
 }
