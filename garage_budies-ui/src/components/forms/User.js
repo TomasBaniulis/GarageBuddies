@@ -2,6 +2,7 @@ import {FieldArray, Form, Formik} from "formik";
 import {Button, CircularProgress, Stack, Typography} from "@mui/material";
 import * as Yup from 'yup';
 import TextInputComponent from "./TextInputComponent";
+import {saveUser} from "../api/userApi";
 
 const userValidationSchema = Yup.object().shape(
     {
@@ -38,6 +39,24 @@ const userValidationSchema = Yup.object().shape(
     }
 )
 
+const onSaveUser = (values, helper) => {
+    saveUser({
+        name:values.name,
+        surname:values.surname,
+        email:values.email,
+        password:values.password,
+        repeatPassword:values.password,
+        address: {
+            buildingNumber:values.buildingNumber,
+            street:values.street,
+            town:values.town
+        }})
+        .then((response)=>helper.resetForm)
+        .catch((error)=>console.log(error))
+        .finally(()=>helper.setSubmitting(false));
+}
+
+
 const User = () => (
     
     <Formik initialValues={{
@@ -46,21 +65,12 @@ const User = () => (
         email:'',
         password:'',
         repeatPassword:'',
+        phoneNumber:'',
         buildingNumber:'',
         street:'',
         town:'',
-        postCode:''
     }}
-            onSubmit={(values, helpers)=>{
-                    console.log('values', values);
-                    console.log('helpers', helpers);
-
-                    setTimeout(() => {
-                                helpers.setSubmitting(false);
-                                helpers.resetForm();
-                        },
-                        1000);
-            }}
+            onSubmit={(values, helper)=>onSaveUser(values, helper)}
 
             validationSchema={userValidationSchema}>
 
@@ -110,15 +120,12 @@ const User = () => (
 
                         </Stack>
                             <Typography sx={{textAlign:'right', mt:2}}>
-                                    props.isSubmitting ? <CircularProgress/> :
                                     <Button variant="outlined" type="submit">Save user</Button>
                             </Typography>
                     </Form>
 
                 )
                 }
-
-
     </Formik>
 
     
