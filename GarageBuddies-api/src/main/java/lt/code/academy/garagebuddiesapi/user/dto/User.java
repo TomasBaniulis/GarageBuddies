@@ -1,5 +1,8 @@
 package lt.code.academy.garagebuddiesapi.user.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +24,25 @@ import java.util.Set;
 @Getter
 public class User implements UserDetails {
     private ObjectId id;
+    @NotBlank
+    @Size(min=3, max=15)
     private String name;
+    @NotBlank
+    @Size(min=3, max=15)
     private String surname;
+    @NotBlank
+    @Size(min=3, max=15)
     private String username;
+    @NotBlank
+    @Email
     private String email;
+    @NotBlank
     private String password;
+    @NotBlank
     private String repeatPassword;
+    @NotBlank
     private String phoneNumber;
+    @NotBlank
     private Address address;
     private Set<Car> cars;
     private Set<ObjectId> favouriteGarages;

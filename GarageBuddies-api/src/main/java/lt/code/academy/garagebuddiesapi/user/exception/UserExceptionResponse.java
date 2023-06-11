@@ -10,11 +10,17 @@ import java.time.ZoneId;
 public class UserExceptionResponse {
     private final String message;
     private final  int status;
-    private final  long timeStamp;
+    private String reason;
 
-    public UserExceptionResponse(String message, HttpStatus status) {
+    public UserExceptionResponse(String message, HttpStatus status){
         this.message = message;
         this.status = status.value();
-        timeStamp = LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond();
     }
+
+    public UserExceptionResponse(String message, HttpStatus status, String reason) {
+        this.message = message;
+        this.status = status.value();
+        this.reason = reason;
+    }
+
 }

@@ -58,21 +58,21 @@ const Car = () => {
 
         validationSchema={carValidationSchema}>
 
-            <form>
-                <Stack spacing={2} direction = 'column'>
-                    <Typography variant="h5">VEHICLE REGISTRATION:</Typography>
+            {/*<form>*/}
+            {/*    <Stack spacing={2} direction = 'column'>*/}
+            {/*        <Typography variant="h5">VEHICLE REGISTRATION:</Typography>*/}
 
-                    
-
-
+            {/*        */}
 
 
-                    <Stack/>
-                    <Typography sx={{textAlign:'right', mt:2}}>
-                        <Button variant="outlined" type="submit">Save</Button>
-                    </Typography>
 
-            </form>
+
+            {/*        <Stack/>*/}
+            {/*        <Typography sx={{textAlign:'right', mt:2}}>*/}
+            {/*            <Button variant="outlined" type="submit">Save</Button>*/}
+            {/*        </Typography>*/}
+
+            {/*</form>*/}
 
 
         </Formik>

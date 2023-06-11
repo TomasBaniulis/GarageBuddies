@@ -1,5 +1,6 @@
 package lt.code.academy.garagebuddiesapi.user;
 
+import lt.code.academy.garagebuddiesapi.user.exception.BusyUsernameException;
 import lt.code.academy.garagebuddiesapi.user.exception.UserDoesNotExistRunTimeException;
 import lt.code.academy.garagebuddiesapi.user.exception.UserExceptionResponse;
 import org.springframework.http.HttpStatus;
@@ -19,5 +20,12 @@ public class UserControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public UserExceptionResponse handelUserException (Exception exception){
         return new UserExceptionResponse(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(BusyUsernameException.class)
+    @ResponseStatus()
+    public UserExceptionResponse handleBusyUsernameException (BusyUsernameException exception){
+        return new UserExceptionResponse("User name busy", HttpStatus.BAD_REQUEST, exception.gerReason());
+
     }
 }

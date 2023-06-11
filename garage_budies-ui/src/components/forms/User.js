@@ -14,6 +14,9 @@ const userValidationSchema = Yup.object().shape(
             .min(5, 'surname must be min 5 symbols')
             .max(15, 'surname must be max 15 symbols')
             .required('surname is required'),
+        username:Yup.string()
+            .min(3, 'user name must be min 3 symbols')
+            .max(15, 'username must be max 15 symbols'),
         email:Yup.string()
             .email('enter valid email address')
             .required('email is required'),
@@ -43,6 +46,7 @@ const onSaveUser = (values, helper) => {
     saveUser({
         name:values.name,
         surname:values.surname,
+        username:values.username,
         email:values.email,
         password:values.password,
         repeatPassword:values.password,
@@ -62,6 +66,7 @@ const User = () => (
     <Formik initialValues={{
         name:'',
         surname:'',
+        username:'',
         email:'',
         password:'',
         repeatPassword:'',
@@ -107,6 +112,10 @@ const User = () => (
                                 <TextInputComponent error={props.touched.town && !!props.errors.town}
                                                     name="town"
                                                     label="Town"
+                                ></TextInputComponent>
+                                <TextInputComponent error={props.touched.username && !!props.errors.username}
+                                                name="username"
+                                                label="username"
                                 ></TextInputComponent>
                                 <TextInputComponent error={props.touched.password && !!props.errors.password}
                                                 name="password"
