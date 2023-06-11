@@ -13,4 +13,6 @@ public interface EndPoint {
 
     String GARAGE = "/{" + garageId + "}";
 
+    String LOGIN = "/login";
+
 }

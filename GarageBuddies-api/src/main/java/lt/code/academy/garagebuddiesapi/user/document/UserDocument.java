@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lt.code.academy.garagebuddiesapi.data.RepairBooking;
+import lt.code.academy.garagebuddiesapi.data.Role;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
 import lt.code.academy.garagebuddiesapi.data.Address;
 import lt.code.academy.garagebuddiesapi.data.Car;
@@ -23,6 +24,7 @@ public class UserDocument {
     private ObjectId id;
     private String name;
     private String surname;
+    private String username;
     private String email;
     private String password;
     private String phoneNumber;
@@ -30,17 +32,20 @@ public class UserDocument {
     private Set<Car> cars;
     private Set<ObjectId> favouriteGarages;
     private Set<RepairBooking> userBookings;
+    private Set<Role> roles;
 
     public static UserDocument convert (User user){
         return new UserDocument(user.getId(),
                 user.getName(),
                 user.getSurname(),
+                user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getCars(),
                 user.getFavouriteGarages(),
-                user.getUserBookings());
+                user.getUserBookings(),
+                user.getRoles());
     }
 }
