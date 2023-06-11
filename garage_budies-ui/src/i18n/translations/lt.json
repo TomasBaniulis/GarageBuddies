@@ -1,0 +1,18 @@
+{
+  "user": {
+    "name": "Vardas",
+    "surname": "Pavardė",
+    "username": "Vartotojo vardas",
+    "email": "El. paštas",
+    "password": "Slaptažodis",
+    "passwordRepeat": "Slpatažodžio patvirtinimas",
+    "phoneNumber": "Tel. numeris",
+    "address": "Adresas",
+    "buildingNumber": "Namo numerisr",
+    "street": "Gatvė",
+    "town": "Miestas"
+  },
+  "car": {
+
+  }
+}

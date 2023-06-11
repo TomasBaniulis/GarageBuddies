@@ -1,0 +1,18 @@
+{
+  "user": {
+    "name": "Name",
+    "surname": "Surname",
+    "username": "username",
+    "email": "Email",
+    "password": "password",
+    "passwordRepeat": "Password conformation",
+    "phoneNumber": "Phone number",
+    "address": "Address",
+    "buildingNumber": "House number",
+    "street": "Street",
+    "town": "Town"
+  },
+  "car": {
+
+  }
+}

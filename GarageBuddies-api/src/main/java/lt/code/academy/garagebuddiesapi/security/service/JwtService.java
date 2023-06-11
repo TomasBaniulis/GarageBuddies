@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -24,7 +23,7 @@ public class JwtService {
     private final byte[] secretKey;
     private final long tokenValidMs;
 
-    public JwtService(@Value("${security.jwt.secret.key}") byte [] secretKey, @Value("#{${security.jwt.valid.mi} * 60000 }") long tokenValidMs){
+    public JwtService(@Value("${security.jwt.secret.key}") byte [] secretKey, @Value("${security.jwt.valid.mi}") long tokenValidMs){
         this.secretKey = secretKey;
         this.tokenValidMs = tokenValidMs;
     }
@@ -54,7 +53,7 @@ public class JwtService {
             validateTokenExpiration(body);
 
             String username = body.getSubject();
-            List<SimpleGrantedAuthority> roles = ((List<String>) body.get("roles")).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+            List<SimpleGrantedAuthority> roles = ((List<String>) body.get("roles")).stream().map(SimpleGrantedAuthority::new).toList();
 
             return new UsernamePasswordAuthenticationToken(username, null, roles);
         }catch ( ExpiredTokenException e) {
