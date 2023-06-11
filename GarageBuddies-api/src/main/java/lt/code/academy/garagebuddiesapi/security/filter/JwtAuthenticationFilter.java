@@ -5,8 +5,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lt.code.academy.garagebuddiesapi.security.Login;
+import lt.code.academy.garagebuddiesapi.security.service.JwtService;
+import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,15 +17,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.Map;
+
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final ObjectMapper mapper;
+    private final JwtService jwtService;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtService jwtService) {
         super(authenticationManager);
         mapper = new ObjectMapper();
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -41,6 +44,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authResult);
+
+        String token = jwtService.createToken((User) authResult.getPrincipal());
+        response.addHeader("Authentication", token);
 
         chain.doFilter(request,response);
     }

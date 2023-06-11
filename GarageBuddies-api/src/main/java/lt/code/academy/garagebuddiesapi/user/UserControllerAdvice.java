@@ -12,7 +12,7 @@ public class UserControllerAdvice {
     @ExceptionHandler(UserDoesNotExistRunTimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public UserExceptionResponse handleUserDoesNotExistRunTimeException (UserDoesNotExistRunTimeException exception){
-        return new UserExceptionResponse( String.format("User does not exist with this %S id", exception.getId()), HttpStatus.NOT_FOUND);
+        return new UserExceptionResponse( String.format("User does not exist with this id"), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)

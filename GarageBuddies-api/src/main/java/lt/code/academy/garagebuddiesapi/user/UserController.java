@@ -2,7 +2,6 @@ package lt.code.academy.garagebuddiesapi.user;
 import lombok.AllArgsConstructor;
 import static lt.code.academy.garagebuddiesapi.EndPoint.*;
 
-import lt.code.academy.garagebuddiesapi.EndPoint;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import lt.code.academy.garagebuddiesapi.user.service.UserService;
 import org.bson.types.ObjectId;

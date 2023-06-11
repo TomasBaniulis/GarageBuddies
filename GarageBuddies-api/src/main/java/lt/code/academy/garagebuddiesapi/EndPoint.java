@@ -5,11 +5,10 @@ public interface EndPoint {
     String userId = "userId";
     String garageId = "garageId";
 
-    String ROOT = "/api";
-    String USERS = ROOT + "/users";
+    String USERS ="/users";
     String USER = "/{" + userId + "}";
 
-    String GARAGES = ROOT + "/garages";
+    String GARAGES = "/garages";
 
     String GARAGE = "/{" + garageId + "}";
 
