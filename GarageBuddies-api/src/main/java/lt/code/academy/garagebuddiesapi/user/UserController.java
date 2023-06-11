@@ -35,7 +35,7 @@ public class UserController {
         userService.createUser(user);
     }
 
-    @PreAuthorize("hasRole(''USER)")
+    @PreAuthorize("hasRole('USER')")
     @PutMapping(value = USER, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void updateUser(@RequestBody User user, @PathVariable(userId) ObjectId id){

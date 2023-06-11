@@ -4,10 +4,10 @@ import lombok.Getter;
 
 @Getter
 public class BusyUsernameException extends RuntimeException{
-    private static final String RESAON = "username.exist";
+    private static final String REASON = "username.exist";
 
-    public String gerReason (){
-        return RESAON;
+    public String getReason (){
+        return REASON;
     }
 
 }

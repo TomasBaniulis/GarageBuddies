@@ -56,7 +56,7 @@ const onSaveUser = (values, helper) => {
             street:values.street,
             town:values.town
         }})
-        .then((response)=>helper.resetForm)
+        .then((response)=>helper.resetForm())
         .catch((error)=>console.log(error))
         .finally(()=>helper.setSubmitting(false));
 }
@@ -79,8 +79,6 @@ const User = () => (
             onSubmit={(values, helper)=>onSaveUser(values, helper)}
 
             validationSchema={userValidationSchema}>
-
-
 
                 {props=>(
                     <Form>
