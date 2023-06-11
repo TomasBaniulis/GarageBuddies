@@ -42,7 +42,6 @@ public class User implements UserDetails {
     private String repeatPassword;
     @NotBlank
     private String phoneNumber;
-    @NotBlank
     private Address address;
     private Set<Car> cars;
     private Set<ObjectId> favouriteGarages;

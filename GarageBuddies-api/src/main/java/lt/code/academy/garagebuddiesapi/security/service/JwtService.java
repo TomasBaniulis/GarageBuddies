@@ -23,7 +23,7 @@ public class JwtService {
     private final byte[] secretKey;
     private final long tokenValidMs;
 
-    public JwtService(@Value("${security.jwt.secret.key}") byte [] secretKey, @Value("${security.jwt.valid.mi}") long tokenValidMs){
+    public JwtService(@Value("${security.jwt.secret.key}") byte [] secretKey, @Value("${security.jwt.token.valid.time}") long tokenValidMs){
         this.secretKey = secretKey;
         this.tokenValidMs = tokenValidMs;
     }

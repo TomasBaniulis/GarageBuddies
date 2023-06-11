@@ -28,7 +28,7 @@ public class SecurityConfig {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/login")
+                    .requestMatchers(HttpMethod.POST, "/**")
                         .permitAll()
                     .requestMatchers(HttpMethod.GET, "/**")
                             .permitAll()

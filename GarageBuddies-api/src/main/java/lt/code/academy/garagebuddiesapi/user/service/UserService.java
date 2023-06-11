@@ -46,7 +46,7 @@ public class UserService implements UserDetailsService {
         user.setCars(cars);
         user.setFavouriteGarages(garages);
         user.setUserBookings(bookings);
-        userRepository.insert(UserDocument.convert(user));
+        userRepository.save(UserDocument.convert(user));
     }
     public void deleteUser (ObjectId id){
         userRepository.deleteById(id);

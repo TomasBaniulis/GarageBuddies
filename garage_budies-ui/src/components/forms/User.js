@@ -48,6 +48,7 @@ const onSaveUser = (values, helper) => {
         surname:values.surname,
         username:values.username,
         email:values.email,
+        phoneNumber:values.phoneNumber,
         password:values.password,
         repeatPassword:values.password,
         address: {
