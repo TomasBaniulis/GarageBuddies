@@ -3,6 +3,8 @@ package lt.code.academy.garagebuddiesapi.security.service;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import lt.code.academy.garagebuddiesapi.data.Role;
+import lt.code.academy.garagebuddiesapi.security.exception.ExpiredTokenException;
 import lt.code.academy.garagebuddiesapi.security.exception.InvalidTokenException;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +38,7 @@ public class JwtService {
                 .setIssuedAt(date)
                 .setExpiration(new Date(date.getTime() + tokenValidMs))
                 .setSubject(user.getUsername())
-                .claim("roles", user.getRoles())
+                .claim("roles", user.getRoles().stream().map(Role::getAuthority).toList())
                 .signWith(Keys.hmacShaKeyFor(secretKey), SignatureAlgorithm.HS512)
                 .compact();
 
@@ -49,13 +51,24 @@ public class JwtService {
             Jwt<Header, Claims> headerClaimsJwt = jwtParser.parseClaimsJwt(token);
             Claims body = headerClaimsJwt.getBody();
 
+            validateTokenExpiration(body);
+
             String username = body.getSubject();
             List<SimpleGrantedAuthority> roles = ((List<String>) body.get("roles")).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
             return new UsernamePasswordAuthenticationToken(username, null, roles);
-        }catch (Exception e){
+        }catch ( ExpiredTokenException e) {
+            throw e;
+        } catch (Exception e){
             throw new InvalidTokenException();
+        }
+    }
 
+    private void validateTokenExpiration (Claims claims){
+        Date expirationDate = claims.getExpiration();
+
+        if (expirationDate.before(new Date())){
+            throw new ExpiredTokenException();
         }
     }
 
