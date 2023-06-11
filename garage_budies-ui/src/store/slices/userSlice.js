@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {addToLocalStorage, deleteFromLocalStorage} from "../../storage/localStorage";
+import {addToLocalStorage, deleteFromLocalStorage, getFromLocalStorage} from "../../storage/localStorage";
 
 const initialState= {
     user:null,
@@ -22,12 +22,13 @@ const userSlice = createSlice(
             },
             addCar (state, action) {
                 const car = action.payload.car;
-                const copyOfUser = [...state];
-                copyOfUser.cars.push(car);
-                return copyOfUser;
+                state.cars.push(car);
             }
         }
     }
 );
+
+const getUserFromLocalStorage =() => getFromLocalStorage('user') || initialState;
 export default userSlice.reducer;
 export const {addUser, removeUser,addCar} = userSlice.actions
+export { getUserFromLocalStorage}
