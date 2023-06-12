@@ -7,10 +7,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import {Avatar, Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
-import {Copyright} from "@mui/icons-material";
 import Paper from "@mui/material/Paper";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Link from "@mui/material/Link";
+import Copyright from "./Copyright";
+import GarageIcon from '@mui/icons-material/Garage';
+
 const loginValidationSchema = Yup.object().shape(
     {
         username:Yup.string().required(),
@@ -19,24 +21,20 @@ const loginValidationSchema = Yup.object().shape(
 
 const defaultTheme = createTheme();
 
-// function Copyright(props) {
-//     return (
-//         <Typography variant="body2" color="text.secondary" align="center" {...props}>
-//             {'Copyright © '}
-//             <Link color="inherit" href="https://mui.com/">
-//                 Your Website
-//             </Link>{' '}
-//             {new Date().getFullYear()}
-//             {'.'}
-//         </Typography>
-//     );
-// }
-
     const onLogin = (values, helpers) => {}
 
 const LoginPage =() => {
+
         return (
-            <>
+            <Formik
+                initialValues={ {username: '', password: ''} }
+
+                onSubmit={ onLogin }
+
+                validationSchema={ loginValidationSchema }>
+
+                { props => (
+
     <ThemeProvider theme={defaultTheme}>
         <Grid container component="main" sx={{height: '100vh'}}>
             <CssBaseline/>
@@ -64,21 +62,22 @@ const LoginPage =() => {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                        <LockOutlinedIcon/>
-                    </Avatar>
+
+                        <GarageIcon/>
+
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Sign in to Garage Buddies
                     </Typography>
+                    <Form>
                     <Box component="form" noValidate onSubmit={onLogin} sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="usernamel"
+                            label="Username"
+                            name="usernamel"
+                            autoComplete="username"
                             autoFocus
                         />
                         <TextField
@@ -99,7 +98,7 @@ const LoginPage =() => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{mt: 3, mb: 2}}
+                            sx={{mt: 3, mb: 2, bgcolor:'black'}}
                         >
                             Sign In
                         </Button>
@@ -117,12 +116,15 @@ const LoginPage =() => {
                         </Grid>
                         <Copyright sx={{mt: 5}}/>
                     </Box>
+                    </Form>
                 </Box>
             </Grid>
         </Grid>
     </ThemeProvider>
-            </>
-        )
+                    )
+                }
+            </Formik>
+        );
 }
 
 export default LoginPage;

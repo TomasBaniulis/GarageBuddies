@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "lt.code.academy.garagebuddiesapi.garage")
 public class GarageControllerAdvice {
     @ExceptionHandler(GarageDoesNotExistRunTimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
