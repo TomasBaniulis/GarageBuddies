@@ -9,8 +9,9 @@ const DateSelectorForCar =({name, label}) => {
     const [selectedDate, setSelectedDate] = useState("")
 
     const onSelectingDate =(event)=>{
-        setSelectedDate(event.target.value)
         console.log(event.target.value)
+        setSelectedDate(event.target.value)
+
     }
 
     return(

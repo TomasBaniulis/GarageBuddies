@@ -46,6 +46,7 @@ public class UserService implements UserDetailsService {
         user.setCars(cars);
         user.setFavouriteGarages(garages);
         user.setUserBookings(bookings);
+        user.setRoles(roles);
         userRepository.save(UserDocument.convert(user));
     }
     public void deleteUser (ObjectId id){
@@ -56,6 +57,22 @@ public class UserService implements UserDetailsService {
         showUserById(user.getId());
         userRepository.save(UserDocument.convert(user));
     }
+
+    public  void addCar (ObjectId id, Car car){
+        User user = showUserById(id);
+        Set<Car> cars = user.getCars();
+        cars.add(car);
+        user.setCars(cars);
+        updateUser(user);
+    }
+
+    public void addReservation(ObjectId id, RepairBooking reservation){
+        User user = showUserById(id);
+        Set<RepairBooking> reservations = user.getUserBookings();
+        reservations.add(reservation);
+        updateUser(user);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDocument userDocument = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("user %s not found", username)));

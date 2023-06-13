@@ -1,6 +1,7 @@
 package lt.code.academy.garagebuddiesapi.config;
 
 import lt.code.academy.garagebuddiesapi.security.filter.JwtAuthenticationFilter;
+import lt.code.academy.garagebuddiesapi.security.filter.JwtAuthorisationFilter;
 import lt.code.academy.garagebuddiesapi.security.service.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @Configuration
-//@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -35,7 +36,7 @@ public class SecurityConfig {
                 .and().exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationConfiguration.getAuthenticationManager(), jwtService))
-                .addFilter(new JwtAuthenticationFilter(authenticationConfiguration.getAuthenticationManager(), jwtService));
+                .addFilter(new JwtAuthorisationFilter(authenticationConfiguration.getAuthenticationManager(), jwtService));
 
 
 

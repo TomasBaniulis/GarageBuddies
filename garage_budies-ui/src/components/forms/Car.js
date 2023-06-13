@@ -43,7 +43,6 @@ const Car = () => {
 
     const onRegisterCar =(values, helpers)=>{
         addCarToUserGarage(values)
-            .then(console.log(values))
             .catch()
             .finally()
     }
@@ -102,19 +101,19 @@ const Car = () => {
                         ></TextInputComponent>
                         <FormSelectComponent name="fuel"
                                              label="Fuel"
-                                             selections={["GAS", "LPG", "DIESEL"]}>
+                                             selections={[{id:7, value:"GAS"}, {id:8, value:"LPG"}, {id:9, value:"DIESEL"}]}>
                         </FormSelectComponent>
                         <FormSelectComponent name="transmission"
                                              label="Transmission"
-                                             selections={["Manual", "Automatic"]}>
+                                             selections={[{id:5, value:"Manual"},{ id:6, value:"Automatic"}]}>
                         </FormSelectComponent>
                         <FormSelectComponent name="drivetrain"
                                              label="Drivetrain"
-                                             selections={["2WD", "4WD"]}>
+                                             selections={[{id:3, value:"2WD"}, {id:4, value:"4WD"}]}>
                         </FormSelectComponent>
                         <FormSelectComponent name="airConditioning"
                                              label="Air Conditioning"
-                                             selections={["true", "false"]}>
+                                             selections={[{id:1, value:"true"},{ id:2, value:"false"}]}>
                         </FormSelectComponent>
                         <DateSelectorForCar name="technicalInspectionDate"
                                             label="Technical inspection date "

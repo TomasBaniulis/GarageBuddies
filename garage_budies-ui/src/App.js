@@ -14,7 +14,7 @@ function App() {
           <Experimental_CssVarsProvider>
               <BrowserRouter>
 
-                  <Car/>
+                  <User/>
               </BrowserRouter>
           </Experimental_CssVarsProvider>
       </Provider>

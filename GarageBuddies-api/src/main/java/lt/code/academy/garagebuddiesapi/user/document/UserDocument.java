@@ -12,6 +12,8 @@ import lt.code.academy.garagebuddiesapi.data.Car;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 
@@ -35,12 +37,13 @@ public class UserDocument {
     private Set<Role> roles;
 
     public static UserDocument convert (User user){
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new UserDocument(user.getId(),
                 user.getName(),
                 user.getSurname(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getPassword(),
+                encoder.encode(user.getPassword()),
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getCars(),

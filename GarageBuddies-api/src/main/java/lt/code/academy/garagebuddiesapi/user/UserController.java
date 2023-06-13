@@ -2,6 +2,8 @@ package lt.code.academy.garagebuddiesapi.user;
 import lombok.AllArgsConstructor;
 import static lt.code.academy.garagebuddiesapi.EndPoint.*;
 
+import lt.code.academy.garagebuddiesapi.data.Car;
+import lt.code.academy.garagebuddiesapi.data.RepairBooking;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import lt.code.academy.garagebuddiesapi.user.service.UserService;
 import org.bson.types.ObjectId;
@@ -42,6 +44,21 @@ public class UserController {
         user.setId(id);
         userService.updateUser(user);
     }
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping(value = ADD_CAR,consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addCar (@RequestBody Car car, @PathVariable(userId) ObjectId id){
+        userService.addCar(id, car);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping(value = ADD_RESERVATION, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addReservation (@RequestBody RepairBooking reservation, @PathVariable(userId) ObjectId id){
+        userService.addReservation(id, reservation);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(value = USER,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
