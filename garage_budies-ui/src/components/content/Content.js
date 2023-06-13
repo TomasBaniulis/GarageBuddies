@@ -2,6 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import User from "../forms/User";
 import LoginPage from "../forms/LoginPage";
 import Car from "../forms/Car";
+import Dashboard from "../Dashboard/DashBoard";
 
 const Content =()=> {
 

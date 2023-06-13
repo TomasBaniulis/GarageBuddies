@@ -12,6 +12,7 @@ const userSlice = createSlice(
         initialState,
         reducers:{
             addUser(state, {payload: user}){
+                console.log(user)
                 addToLocalStorage('user', user)
                 return user;
             },

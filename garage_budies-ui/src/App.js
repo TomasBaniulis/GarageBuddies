@@ -12,9 +12,7 @@ function App() {
   return (
       <Provider store={store}>
           <Experimental_CssVarsProvider>
-              <BrowserRouter>
-                  <Content/>
-              </BrowserRouter>
+                  <Dashboard/>
           </Experimental_CssVarsProvider>
       </Provider>
   );

@@ -5,7 +5,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import {Avatar, Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
+import {Avatar, Button, Checkbox, CircularProgress, FormControlLabel, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -34,16 +34,15 @@ const LoginPage =() => {
     const dispatch = useDispatch();
 
     const onLogin = (values, helpers) => {
-        console.log("testas");
         login(values)
-            .then(({data, headers}) => {
+            .then(({data: data, headers}) => {
                 dispatch(addUser({
                     user:data,
                     jwtToken:headers.authorization,
                 }));
                 }
             )
-            .catch()
+            .catch((error)=>console.log(error))
             .finally(helpers.setSubmitting(false))
     }
 
@@ -53,7 +52,7 @@ const LoginPage =() => {
 
                 onSubmit={ onLogin }
 
-                validationSchema={ loginValidationSchema }>
+                >
 
                 { props => (
 
@@ -113,14 +112,19 @@ const LoginPage =() => {
                             control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{mt: 3, mb: 2, bgcolor:'black'}}
-                        >
-                            Sign In
-                        </Button>
+                            <Typography sx={{textAlign: 'right', mt: 2}}>
+                                {
+                                    props.isSubmitting ? <CircularProgress/> :
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{mt: 3, mb: 2, bgcolor:'black'}}
+                                        >
+                                            SIGN IN
+                                        </Button>
+                                }
+                            </Typography>
                         <Grid container>
                             <Grid item xs>
                                 <Link href="#" variant="body2">
