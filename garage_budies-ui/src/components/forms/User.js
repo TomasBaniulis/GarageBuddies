@@ -6,6 +6,15 @@ import {saveUser} from "../api/userApi";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import Grid from "@mui/material/Grid";
+import CssBaseline from "@mui/material/CssBaseline";
+import * as React from "react";
+import Paper from "@mui/material/Paper";
+import GarageIcon from "@mui/icons-material/Garage";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
+import Copyright from "./Copyright";
 
 const userValidationSchema = Yup.object().shape(
     {
@@ -44,6 +53,8 @@ const userValidationSchema = Yup.object().shape(
                 .required('town name is required')
     }
 )
+
+const defaultTheme = createTheme();
 
 const User = () => {
 
@@ -93,13 +104,52 @@ const User = () => {
             validationSchema={userValidationSchema}>
 
         {props => (
+            <ThemeProvider theme={defaultTheme}>
+
+            <Grid container component="main" sx={{height: '100vh'}}>
+                <CssBaseline/>
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={7}
+                    sx={{
+                        backgroundImage: 'url(https://scontent.fvno7-1.fna.fbcdn.net/v/t1.18169-9/29594652_1954199954654972_1810066133396071461_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=p7K5UlqW2N4AX9-iYr2&_nc_ht=scontent.fvno7-1.fna&oh=00_AfANKzRVxirMgoAUW_GZNyVTbaGpKh14udvIKR3oUk5UGg&oe=64AD9A34)',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                    }}
+                />
+
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square >
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+
+                        <GarageIcon/>
+
+                        <Typography component="h1" variant="h5">
+                            USER REGISTRATION
+                        </Typography>
+
+                        <Box sx={{mt: 1}}>
+
             <Form>
                 {error && <Alert severity="error">{t(error)}</Alert>}
                 <Stack spacing={2} direction='column'>
-                    <Typography variant="h5">USER REGISTRATION:</Typography>
                     <TextInputComponent error={props.touched.name && !!props.errors.name}
                                         name="name"
                                         label="Name"
+                                        margin="normal"
+                                        fullWidth
                     ></TextInputComponent>
                     <TextInputComponent error={props.touched.surname && !!props.errors.surname}
                                         name="surname"
@@ -143,11 +193,26 @@ const User = () => {
                 <Typography sx={{textAlign: 'right', mt: 2}}>
                     {
                         props.isSubmitting ? <CircularProgress/> :
-                            <Button variant="outlined" type="submit">Save user</Button>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{mt: 3, mb: 2, bgcolor:'black'}}
+                            >
+                                Register
+                            </Button>
                     }
                 </Typography>
-            </Form>
 
+                <Copyright sx={{mt: 5}}/>
+            </Form>
+                        </Box>
+
+                    </Box>
+
+            </Grid>
+            </Grid>
+            </ThemeProvider>
         )
         }
     </Formik>

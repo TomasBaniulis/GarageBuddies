@@ -13,8 +13,7 @@ function App() {
       <Provider store={store}>
           <Experimental_CssVarsProvider>
               <BrowserRouter>
-
-                  <User/>
+                  <Content/>
               </BrowserRouter>
           </Experimental_CssVarsProvider>
       </Provider>

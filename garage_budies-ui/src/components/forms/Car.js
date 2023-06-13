@@ -3,10 +3,8 @@ import {Button, CircularProgress, Stack, Typography} from "@mui/material";
 import * as Yup from 'yup';
 import TextInputComponent from "./TextInputComponent";
 import FormSelectComponent from "./FormSelectComponent";
-import DateSelectorForCar from "./DateSelectorForCar";
-import {addCar} from "../../store/slices/userSlice";
 import {addCarToUserGarage} from "../api/userApi";
-
+import DateFieldForCar from "./DateSelectorForCar";
 const carValidationSchema = Yup.object().shape(
     {
         vinCode:Yup.string()
@@ -14,7 +12,7 @@ const carValidationSchema = Yup.object().shape(
             .max(17, "VIN code is 17 symbols")
             .required("VIN code is required"),
         make:Yup.string()
-            .min(2, "makes must be min 2 symbols")
+            .min(2, "make must be min 2 symbols")
             .max(15, "make must be max 15 symbols")
             .required("make is required"),
         model:Yup.string()
@@ -27,10 +25,10 @@ const carValidationSchema = Yup.object().shape(
             .required("engine capacity is required"),
         power:Yup.number()
             .min(2, "power must be min 2 numbers"),
-        dateOfProduction:Yup.date()
-            .required("production date is required"),
-        technicalInspectionDate:Yup.date()
-            .required("technical inspection date is required"),
+        // dateOfProduction:Yup.date()
+        //     .required("production date is required"),
+        // technicalInspectionDate:Yup.date()
+        //     .required("technical inspection date is required"),
         mileage:Yup.number()
             .min(1, "lowest mileage can be 0 km")
             .required("car mileage is required")
@@ -60,8 +58,8 @@ const Car = () => {
                 transmission:"",
                 drivetrain:"",
                 airConditioning:"",
-                dateOfProduction:"",
-                technicalInspectionDate:"",
+                dateOfProduction:Date.now(),
+                technicalInspectionDate:Date.now(),
                 mileage:""
             }}
                 onSubmit={onRegisterCar}
@@ -69,6 +67,7 @@ const Car = () => {
         validationSchema={carValidationSchema}>
 
             {props =>(
+
                 <Form>
                     <Stack spacing={2} direction ='column'>
                         <Typography variant="h5">VEHICLE REGISTRATION:</Typography>
@@ -84,9 +83,9 @@ const Car = () => {
                                             name="vinCode"
                                             label="Vin Code"
                         ></TextInputComponent>
-                        <DateSelectorForCar name="dateOfProduction"
-                                            label="Date of production"
-                        ></DateSelectorForCar>
+                        <DateFieldForCar name="dateOfProduction"
+                                         id={"Date of production"}
+                        ></DateFieldForCar>
                         <TextInputComponent error={props.touched.mileage && !!props.errors.mileage}
                                             name="mileage"
                                             label="Mileage in Km"
@@ -115,9 +114,6 @@ const Car = () => {
                                              label="Air Conditioning"
                                              selections={[{id:1, value:"true"},{ id:2, value:"false"}]}>
                         </FormSelectComponent>
-                        <DateSelectorForCar name="technicalInspectionDate"
-                                            label="Technical inspection date "
-                        ></DateSelectorForCar>
 
 
 

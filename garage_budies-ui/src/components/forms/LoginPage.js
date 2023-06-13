@@ -1,6 +1,6 @@
 import * as  Yup from "yup";
 import * as React from 'react';
-import {Form, Formik} from "formik";
+import {Field, Form, Formik} from "formik";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,11 +16,13 @@ import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {login} from "../api/userApi";
 import {addUser} from "../../store/slices/userSlice";
+import TextInputComponent from "./TextInputComponent";
+import {NavLink} from "react-router-dom";
 
 const loginValidationSchema = Yup.object().shape(
     {
         username:Yup.string().required(),
-        password:Yup.string().required(),
+        password:Yup.string().required()
     });
 
 const defaultTheme = createTheme();
@@ -32,11 +34,12 @@ const LoginPage =() => {
     const dispatch = useDispatch();
 
     const onLogin = (values, helpers) => {
+        console.log("testas");
         login(values)
             .then(({data, headers}) => {
                 dispatch(addUser({
                     user:data,
-                    jwtToken:headers.authorization
+                    jwtToken:headers.authorization,
                 }));
                 }
             )
@@ -87,28 +90,25 @@ const LoginPage =() => {
                     <Typography component="h1" variant="h5">
                         Sign in to Garage Buddies
                     </Typography>
-                    <Form>
-                    <Box component="form" noValidate onSubmit={onLogin} sx={{mt: 1}}>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="usernamel"
-                            label="Username"
-                            name="usernamel"
-                            autoComplete="username"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
+
+                    <Box sx={{mt: 1}}>
+                        <Form>
+                            <TextInputComponent error={props.touched.username && !!props.errors.username}
+                                                name="username"
+                                                label="username"
+                                                margin="normal"
+                                                fullWidth
+                                                required
+                            ></TextInputComponent>
+                            <TextInputComponent error={props.touched.password && !!props.errors.password}
+                                                name="password"
+                                                label="Password"
+                                                margin="normal"
+                                                mr="2rem"
+                                                fullWidth
+                                                required
+                                                type="password"
+                            ></TextInputComponent>
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
@@ -128,14 +128,15 @@ const LoginPage =() => {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link component={NavLink} to="/users/register" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
                         </Grid>
                         <Copyright sx={{mt: 5}}/>
+                        </Form>
                     </Box>
-                    </Form>
+
                 </Box>
             </Grid>
         </Grid>
