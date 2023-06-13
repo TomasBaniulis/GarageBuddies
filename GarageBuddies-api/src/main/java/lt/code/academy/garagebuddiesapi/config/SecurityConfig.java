@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @Configuration
-@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+//@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -28,10 +28,8 @@ public class SecurityConfig {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                     .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/**")
+                    .requestMatchers(HttpMethod.POST, "/users", "/login")
                         .permitAll()
-                    .requestMatchers(HttpMethod.GET, "/**")
-                            .permitAll()
                     .anyRequest()
                     .authenticated()
                 .and().exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))

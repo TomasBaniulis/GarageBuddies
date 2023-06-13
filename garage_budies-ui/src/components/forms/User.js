@@ -1,8 +1,11 @@
 import {FieldArray, Form, Formik} from "formik";
-import {Button, CircularProgress, Stack, Typography} from "@mui/material";
+import {Alert, Button, CircularProgress, Stack, Typography} from "@mui/material";
 import * as Yup from 'yup';
 import TextInputComponent from "./TextInputComponent";
 import {saveUser} from "../api/userApi";
+import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 const userValidationSchema = Yup.object().shape(
     {
@@ -42,102 +45,115 @@ const userValidationSchema = Yup.object().shape(
     }
 )
 
-const onSaveUser = (values, helper) => {
-    saveUser({
-        name:values.name,
-        surname:values.surname,
-        username:values.username,
-        email:values.email,
-        phoneNumber:values.phoneNumber,
-        password:values.password,
-        repeatPassword:values.password,
-        address: {
-            buildingNumber:values.buildingNumber,
-            street:values.street,
-            town:values.town
-        }})
-        .then((response)=>helper.resetForm())
-        .catch((error)=>console.log(error))
-        .finally(()=>helper.setSubmitting(false));
-}
+const User = () => {
 
+    const navigate = useNavigate();
 
-const User = () => (
-    
+    const onSaveUser = (values, helper) => {
+        saveUser({
+            name:values.name,
+            surname:values.surname,
+            username:values.username,
+            email:values.email,
+            phoneNumber:values.phoneNumber,
+            password:values.password,
+            repeatPassword:values.password,
+            address: {
+                buildingNumber:values.buildingNumber,
+                street:values.street,
+                town:values.town
+            }})
+            .then((response)=>{
+                helper.resetForm();
+                navigate('/login');
+            })
+            .catch(({response})=>setError(response.data.reason))
+            .finally(()=>helper.setSubmitting(false));
+    }
+
+    const {t} = useTranslation('user');
+    const [error, setError] = useState();
+
+    return (
+
     <Formik initialValues={{
-        name:'',
-        surname:'',
-        username:'',
-        email:'',
-        password:'',
-        repeatPassword:'',
-        phoneNumber:'',
-        buildingNumber:'',
-        street:'',
-        town:'',
+        name: '',
+        surname: '',
+        username: '',
+        email: '',
+        password: '',
+        repeatPassword: '',
+        phoneNumber: '',
+        buildingNumber: '',
+        street: '',
+        town: '',
     }}
-            onSubmit={(values, helper)=>onSaveUser(values, helper)}
+            onSubmit={(values, helper) => onSaveUser(values, helper)}
 
             validationSchema={userValidationSchema}>
 
-                {props=>(
-                    <Form>
-                        <Stack spacing={2} direction = 'column'>
-                                <Typography variant="h5">USER REGISTRATION:</Typography>
-                                <TextInputComponent error={props.touched.name && !!props.errors.name}
-                                                    name="name"
-                                                    label="Name"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.surname && !!props.errors.surname}
-                                                    name="surname"
-                                                    label="Surname"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.email && !!props.errors.email}
-                                                    name="email"
-                                                    label="Email"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.phoneNumber && !!props.errors.phoneNumber}
-                                                    name="phoneNumber"
-                                                    label="Phone number"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.buildingNumber && !!props.errors.buildingNumber}
-                                                    name="buildingNumber"
-                                                    label="House number"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.street && !!props.errors.street}
-                                                    name="street"
-                                                    label="Street name"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.town && !!props.errors.town}
-                                                    name="town"
-                                                    label="Town"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.username && !!props.errors.username}
-                                                name="username"
-                                                label="username"
-                                ></TextInputComponent>
-                                <TextInputComponent error={props.touched.password && !!props.errors.password}
-                                                name="password"
-                                                label="Password"
-                                 ></TextInputComponent>
-                                <TextInputComponent error={props.touched.repeatPassword && !!props.errors.repeatPassword}
-                                                name="repeatPassword"
-                                                label="Password confirmation"
-                                 ></TextInputComponent>
+        {props => (
+            <Form>
+                {error && <Alert severity="error">{t(error)}</Alert>}
+                <Stack spacing={2} direction='column'>
+                    <Typography variant="h5">USER REGISTRATION:</Typography>
+                    <TextInputComponent error={props.touched.name && !!props.errors.name}
+                                        name="name"
+                                        label="Name"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.surname && !!props.errors.surname}
+                                        name="surname"
+                                        label="Surname"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.email && !!props.errors.email}
+                                        name="email"
+                                        label="Email"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.phoneNumber && !!props.errors.phoneNumber}
+                                        name="phoneNumber"
+                                        label="Phone number"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.buildingNumber && !!props.errors.buildingNumber}
+                                        name="buildingNumber"
+                                        label="House number"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.street && !!props.errors.street}
+                                        name="street"
+                                        label="Street name"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.town && !!props.errors.town}
+                                        name="town"
+                                        label="Town"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.username && !!props.errors.username}
+                                        name="username"
+                                        label="username"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.password && !!props.errors.password}
+                                        name="password"
+                                        label="Password"
+                    ></TextInputComponent>
+                    <TextInputComponent error={props.touched.repeatPassword && !!props.errors.repeatPassword}
+                                        name="repeatPassword"
+                                        label="Password confirmation"
+                    ></TextInputComponent>
 
 
-                        </Stack>
-                            <Typography sx={{textAlign:'right', mt:2}}>
-                                    <Button variant="outlined" type="submit">Save user</Button>
-                            </Typography>
-                    </Form>
+                </Stack>
+                <Typography sx={{textAlign: 'right', mt: 2}}>
+                    {
+                        props.isSubmitting ? <CircularProgress/> :
+                            <Button variant="outlined" type="submit">Save user</Button>
+                    }
+                </Typography>
+            </Form>
 
-                )
-                }
+        )
+        }
     </Formik>
+    )
 
-    
-)
+}
 
 export default User;
     

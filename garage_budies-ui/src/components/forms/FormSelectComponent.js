@@ -1,25 +1,44 @@
-const FormSelectComponent =(name, values)=>{
+import {FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField,} from "@mui/material";
+import {ErrorMessage, Field} from "formik";
+import {useState} from "react";
+import * as events from "events";
 
-    return(
-        <>
+
+
+    const FormSelectComponent = ({ name,label, selections, ...props}) => {
+
+        const [selection, setSelection] = useState("");
+
+        const handleChange = (event) =>{
+            setSelection(event.target.value);
+            console.log(selections)
+            console.log(event.target.value)
+
+        }
+
+        return(
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">{name}</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
+                <InputLabel >{label}</InputLabel>
+                <Field
+                    id={name}
+                    name={name}
+                    as={Select}
+                    value={selection}
+                    label={name}
                     onChange={handleChange}
                 >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
+                    {selections.map((sel)=>
+                        <MenuItem key={sel.value} value={sel.value}>{sel.value}</MenuItem>
+                    )}
+
+                    {/*<MenuItem value="gas">GAS</MenuItem>*/}
+                    {/*<MenuItem value="diesel">DIESEL</MenuItem>*/}
+                    {/*<MenuItem value="lpg">LPG</MenuItem>*/}
+                </Field>
             </FormControl>
+        );
 
 
-        </>
-    )
-}
+    }
 
-export default FormSelectComponent
+export default FormSelectComponent;

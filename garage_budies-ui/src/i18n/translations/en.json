@@ -2,7 +2,10 @@
   "user": {
     "name": "Name",
     "surname": "Surname",
-    "username": "username",
+    "username": {
+      "username": "username",
+      "exist" : "username you are trying to use is already taken"
+    },
     "email": "Email",
     "password": "password",
     "passwordRepeat": "Password conformation",

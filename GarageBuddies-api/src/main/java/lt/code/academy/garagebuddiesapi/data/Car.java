@@ -16,10 +16,10 @@ public class Car {
     private String make;
     private String model;
     private Integer engineCapacity;
-    private Fuel fuel;
+    private String fuel;
     private Integer power;
-    private Transmission transmission;
-    private Drivetrain drivetrain;
+    private String transmission;
+    private String drivetrain;
     private Boolean airConditioning;
     private LocalDate dateOfProduction;
     private LocalDate technicalInspectionDate;

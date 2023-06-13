@@ -12,6 +12,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Link from "@mui/material/Link";
 import Copyright from "./Copyright";
 import GarageIcon from '@mui/icons-material/Garage';
+import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {login} from "../api/userApi";
+import {addUser} from "../../store/slices/userSlice";
 
 const loginValidationSchema = Yup.object().shape(
     {
@@ -21,9 +25,24 @@ const loginValidationSchema = Yup.object().shape(
 
 const defaultTheme = createTheme();
 
-    const onLogin = (values, helpers) => {}
+
 
 const LoginPage =() => {
+
+    const dispatch = useDispatch();
+
+    const onLogin = (values, helpers) => {
+        login(values)
+            .then(({data, headers}) => {
+                dispatch(addUser({
+                    user:data,
+                    jwtToken:headers.authorization
+                }));
+                }
+            )
+            .catch()
+            .finally(helpers.setSubmitting(false))
+    }
 
         return (
             <Formik

@@ -1,7 +1,11 @@
-import {Formik} from "formik";
-import {Button, Typography} from "@mui/material";
+import {Form, Formik} from "formik";
+import {Button, CircularProgress, Stack, Typography} from "@mui/material";
 import * as Yup from 'yup';
 import TextInputComponent from "./TextInputComponent";
+import FormSelectComponent from "./FormSelectComponent";
+import DateSelectorForCar from "./DateSelectorForCar";
+import {addCar} from "../../store/slices/userSlice";
+import {addCarToUserGarage} from "../api/userApi";
 
 const carValidationSchema = Yup.object().shape(
     {
@@ -13,29 +17,36 @@ const carValidationSchema = Yup.object().shape(
             .min(2, "makes must be min 2 symbols")
             .max(15, "make must be max 15 symbols")
             .required("make is required"),
-        model:Yup.string("enter numbers only")
+        model:Yup.string()
             .min(2, "model must be min 2 symbols")
             .max(15, "model must be max 15 symbols")
             .required("model is required"),
-        engineCapacity:Yup.number("enter numbers only")
-            .min(3, "engine capacit min 3 numbers")
+        engineCapacity:Yup.number()
+            .min(3, "engine capacity min 3 numbers")
             .max(4, "engine capacity max 4 numbers")
             .required("engine capacity is required"),
-        power:Yup.number("enter numbers only")
-            .min(2, "power must be min 2 numbers")
-            .max(4, "power must be max 4 numbers"),
+        power:Yup.number()
+            .min(2, "power must be min 2 numbers"),
         dateOfProduction:Yup.date()
-            .max(Date.now(), "Date can't be in the future")
             .required("production date is required"),
         technicalInspectionDate:Yup.date()
             .required("technical inspection date is required"),
-        mileage:Yup.number("enter numbers only")
-            .min(0, "lowest mileage can be 0 km")
+        mileage:Yup.number()
+            .min(1, "lowest mileage can be 0 km")
             .required("car mileage is required")
     }
 )
 
 const Car = () => {
+
+    const fuel = ["GAS", "LPG", "DIESEL"];
+
+    const onRegisterCar =(values, helpers)=>{
+        addCarToUserGarage(values)
+            .then(console.log(values))
+            .catch()
+            .finally()
+    }
 
     return(
 
@@ -45,36 +56,81 @@ const Car = () => {
                 make:"",
                 model:"",
                 engineCapacity:"",
-                fuel:["petroleum", "diesel", "LPG"],
+                fuel:"",
                 power:"",
-                transmission:["automatic","manual"],
-                drivetrain:["2WD", "4WD" ],
-                airConditioning:["true", "false"],
+                transmission:"",
+                drivetrain:"",
+                airConditioning:"",
                 dateOfProduction:"",
                 technicalInspectionDate:"",
                 mileage:""
             }}
-                onSubmit={}
+                onSubmit={onRegisterCar}
 
         validationSchema={carValidationSchema}>
 
-            {/*<form>*/}
-            {/*    <Stack spacing={2} direction = 'column'>*/}
-            {/*        <Typography variant="h5">VEHICLE REGISTRATION:</Typography>*/}
+            {props =>(
+                <Form>
+                    <Stack spacing={2} direction ='column'>
+                        <Typography variant="h5">VEHICLE REGISTRATION:</Typography>
+                        <TextInputComponent error={props.touched.make && !!props.errors.make}
+                                            name="make"
+                                            label="Make"
+                        ></TextInputComponent>
+                        <TextInputComponent error={props.touched.model && !!props.errors.model}
+                                            name="model"
+                                            label="Model"
+                        ></TextInputComponent>
+                        <TextInputComponent error={props.touched.vinCode && !!props.errors.vinCode}
+                                            name="vinCode"
+                                            label="Vin Code"
+                        ></TextInputComponent>
+                        <DateSelectorForCar name="dateOfProduction"
+                                            label="Date of production"
+                        ></DateSelectorForCar>
+                        <TextInputComponent error={props.touched.mileage && !!props.errors.mileage}
+                                            name="mileage"
+                                            label="Mileage in Km"
+                        ></TextInputComponent>
+                        <TextInputComponent error={props.touched.engineCapacity && !!props.errors.engineCapacity}
+                                            name="engineCapacity"
+                                            label="Engine Capacity"
+                        ></TextInputComponent>
+                        <TextInputComponent error={props.touched.power && !!props.errors.power}
+                                            name="power"
+                                            label="Power in kW"
+                        ></TextInputComponent>
+                        <FormSelectComponent name="fuel"
+                                             label="Fuel"
+                                             selections={["GAS", "LPG", "DIESEL"]}>
+                        </FormSelectComponent>
+                        <FormSelectComponent name="transmission"
+                                             label="Transmission"
+                                             selections={["Manual", "Automatic"]}>
+                        </FormSelectComponent>
+                        <FormSelectComponent name="drivetrain"
+                                             label="Drivetrain"
+                                             selections={["2WD", "4WD"]}>
+                        </FormSelectComponent>
+                        <FormSelectComponent name="airConditioning"
+                                             label="Air Conditioning"
+                                             selections={["true", "false"]}>
+                        </FormSelectComponent>
+                        <DateSelectorForCar name="technicalInspectionDate"
+                                            label="Technical inspection date "
+                        ></DateSelectorForCar>
 
-            {/*        */}
 
 
-
-
-            {/*        <Stack/>*/}
-            {/*        <Typography sx={{textAlign:'right', mt:2}}>*/}
-            {/*            <Button variant="outlined" type="submit">Save</Button>*/}
-            {/*        </Typography>*/}
-
-            {/*</form>*/}
-
-
+                    </Stack>
+                    <Typography sx={{textAlign:'right', mt:2}}>
+                        {
+                            props.isSubmitting ? <CircularProgress/> :
+                                <Button variant="outlined" type="submit">Save car</Button>
+                        }
+                    </Typography>
+                </Form>
+            )}
         </Formik>
     )
 }
