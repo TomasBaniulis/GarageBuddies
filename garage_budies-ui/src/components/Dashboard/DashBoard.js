@@ -23,6 +23,9 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import Content from "../content/Content";
 import {BrowserRouter} from "react-router-dom";
+import {useSelector} from "react-redux";
+import DirectionsCarFilledSharpIcon from '@mui/icons-material/DirectionsCarFilledSharp';
+import {Avatar} from "@mui/material";
 
 
 const drawerWidth = 240;
@@ -79,6 +82,8 @@ export default function Dashboard() {
         setOpen(!open);
     };
 
+    const user = useSelector(state =>state.user.user);
+
     return (
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -111,11 +116,13 @@ export default function Dashboard() {
                         >
                             GarageBuddies
                         </Typography>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+                        {
+                            user ? <>< div sx={{mRight:"3rem"}}>{user.username}</div>   <Avatar
+                                alt={user.username}
+                                src="https://youprobablyneedahaircut.com/wp-content/uploads/2021/11/shutterstock_1620107944-720x540.jpg.webp"
+                                sx={{ width: 40, height: 40 }}
+                            /> </>: <></>
+                        }
                     </Toolbar>
                 </AppBar>
                 <Drawer variant="permanent" open={open}>

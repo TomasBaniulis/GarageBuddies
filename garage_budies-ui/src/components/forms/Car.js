@@ -1,10 +1,15 @@
 import {Form, Formik} from "formik";
-import {Button, CircularProgress, Stack, Typography} from "@mui/material";
+import {Alert, Button, CircularProgress, Stack, Typography} from "@mui/material";
 import * as Yup from 'yup';
 import TextInputComponent from "./TextInputComponent";
 import FormSelectComponent from "./FormSelectComponent";
 import {addCarToUserGarage} from "../api/userApi";
 import DateFieldForCar from "./DateSelectorForCar";
+import dayjs from 'dayjs';
+import Copyright from "./Copyright";
+import * as React from "react";
+import {useState} from "react";
+import Container from "@mui/material/Container";
 const carValidationSchema = Yup.object().shape(
     {
         vinCode:Yup.string()
@@ -21,7 +26,7 @@ const carValidationSchema = Yup.object().shape(
             .required("model is required"),
         engineCapacity:Yup.number()
             .min(3, "engine capacity min 3 numbers")
-            .max(4, "engine capacity max 4 numbers")
+            // .max(5, "engine capacity max 4 numbers")
             .required("engine capacity is required"),
         power:Yup.number()
             .min(2, "power must be min 2 numbers"),
@@ -37,12 +42,20 @@ const carValidationSchema = Yup.object().shape(
 
 const Car = () => {
 
-    const fuel = ["GAS", "LPG", "DIESEL"];
+    const [showError, setShowError] = useState(false);
 
     const onRegisterCar =(values, helpers)=>{
         addCarToUserGarage(values)
-            .catch()
-            .finally()
+            .then((r)=>{
+                console.log("test:", values)
+                helpers.resetForm();
+
+            })
+            .catch((err)=>{
+                console.log(err);
+                setShowError(true)
+            })
+            .finally(()=>helpers.setSubmitting(false))
     }
 
     return(
@@ -58,8 +71,8 @@ const Car = () => {
                 transmission:"",
                 drivetrain:"",
                 airConditioning:"",
-                dateOfProduction:Date.now(),
-                technicalInspectionDate:Date.now(),
+                dateOfProduction:"",
+                technicalInspectionDate:"",
                 mileage:""
             }}
                 onSubmit={onRegisterCar}
@@ -69,8 +82,10 @@ const Car = () => {
             {props =>(
 
                 <Form>
+                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                     <Stack spacing={2} direction ='column'>
                         <Typography variant="h5">VEHICLE REGISTRATION:</Typography>
+                        {showError && <Alert severity="error">VEHICLE RREGISTRATION FAILED</Alert> }
                         <TextInputComponent error={props.touched.make && !!props.errors.make}
                                             name="make"
                                             label="Make"
@@ -84,12 +99,15 @@ const Car = () => {
                                             label="Vin Code"
                         ></TextInputComponent>
                         <DateFieldForCar name="dateOfProduction"
-                                         id={"Date of production"}
+                                         label="Date of production"
                         ></DateFieldForCar>
                         <TextInputComponent error={props.touched.mileage && !!props.errors.mileage}
                                             name="mileage"
                                             label="Mileage in Km"
                         ></TextInputComponent>
+                        <DateFieldForCar name="technicalInspectionDate"
+                                         label="Technical inspection date"
+                        ></DateFieldForCar>
                         <TextInputComponent error={props.touched.engineCapacity && !!props.errors.engineCapacity}
                                             name="engineCapacity"
                                             label="Engine Capacity"
@@ -119,11 +137,20 @@ const Car = () => {
 
                     </Stack>
                     <Typography sx={{textAlign:'right', mt:2}}>
-                        {
-                            props.isSubmitting ? <CircularProgress/> :
-                                <Button variant="outlined" type="submit">Save car</Button>
-                        }
+                            {
+                                props.isSubmitting ? <CircularProgress/> :
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{mt: 3, mb: 2, bgcolor:'black'}}
+                                    >
+                                        Register
+                                    </Button>
+                            }
                     </Typography>
+                    <Copyright sx={{mt: 5}}/>
+                    </Container>
                 </Form>
             )}
         </Formik>

@@ -5,7 +5,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import {Avatar, Button, Checkbox, CircularProgress, FormControlLabel, TextField} from "@mui/material";
+import {Alert, Avatar, Button, Checkbox, CircularProgress, FormControlLabel, TextField} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -33,6 +33,8 @@ const LoginPage =() => {
 
     const dispatch = useDispatch();
 
+    const [showError, setShowError] = useState(false);
+
     const onLogin = (values, helpers) => {
         login(values)
             .then(({data: data, headers}) => {
@@ -42,7 +44,9 @@ const LoginPage =() => {
                 }));
                 }
             )
-            .catch((error)=>console.log(error))
+            .catch((error)=>{
+                console.log(error);
+                setShowError(true)})
             .finally(helpers.setSubmitting(false))
     }
 
@@ -89,6 +93,8 @@ const LoginPage =() => {
                     <Typography component="h1" variant="h5">
                         Sign in to Garage Buddies
                     </Typography>
+
+                    {showError && <Alert severity="error">LOGIN FAILED</Alert> }
 
                     <Box sx={{mt: 1}}>
                         <Form>
