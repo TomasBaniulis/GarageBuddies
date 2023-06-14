@@ -47,7 +47,7 @@ public class JwtService {
         try {
             JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(secretKey).build();
 
-            Jwt<Header, Claims> headerClaimsJwt = jwtParser.parseClaimsJwt(token);
+            Jws< Claims> headerClaimsJwt = jwtParser.parseClaimsJws(token);
             Claims body = headerClaimsJwt.getBody();
 
             validateTokenExpiration(body);

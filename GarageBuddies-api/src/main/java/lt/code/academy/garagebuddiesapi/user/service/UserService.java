@@ -2,6 +2,7 @@ package lt.code.academy.garagebuddiesapi.user.service;
 
 import lombok.AllArgsConstructor;
 import lt.code.academy.garagebuddiesapi.data.Car;
+import lt.code.academy.garagebuddiesapi.data.CarRegistrationData;
 import lt.code.academy.garagebuddiesapi.data.RepairBooking;
 import lt.code.academy.garagebuddiesapi.data.Role;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
@@ -58,12 +59,16 @@ public class UserService implements UserDetailsService {
         userRepository.save(UserDocument.convert(user));
     }
 
-    public  void addCar (ObjectId id, Car car){
-        User user = showUserById(id);
-        Set<Car> cars = user.getCars();
-        cars.add(car);
-        user.setCars(cars);
-        updateUser(user);
+    public  void addCar (ObjectId id, CarRegistrationData car){
+//        User user = showUserById(id);
+//        Set<Car> cars = user.getCars();
+//        cars.add(car);
+//        user.setCars(cars);
+        System.out.println("pagaminimo data:" + car.getDateOfProduction());
+        System.out.println("pagaminimo data:" + car.getMake());
+        System.out.println("pagaminimo data:" + car.getFuel());
+        System.out.println("pagaminimo data:" + car.getAirConditioning());
+//        updateUser(user);
     }
 
     public void addReservation(ObjectId id, RepairBooking reservation){

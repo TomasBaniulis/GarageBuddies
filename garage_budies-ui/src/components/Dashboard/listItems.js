@@ -13,6 +13,7 @@ import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import BuildIcon from '@mui/icons-material/Build';
 import NotificationImportantIcon from '@mui/icons-material/NotificationImportant';
 import SettingsIcon from '@mui/icons-material/Settings';
+import {NavLink} from "react-router-dom";
 
 export const mainListItems = (
     <React.Fragment>
@@ -22,7 +23,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton >
             <ListItemIcon>
                 <DriveEtaIcon />
             </ListItemIcon>

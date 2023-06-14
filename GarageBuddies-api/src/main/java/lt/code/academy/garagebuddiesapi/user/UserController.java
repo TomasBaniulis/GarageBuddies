@@ -3,6 +3,7 @@ import lombok.AllArgsConstructor;
 import static lt.code.academy.garagebuddiesapi.EndPoint.*;
 
 import lt.code.academy.garagebuddiesapi.data.Car;
+import lt.code.academy.garagebuddiesapi.data.CarRegistrationData;
 import lt.code.academy.garagebuddiesapi.data.RepairBooking;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import lt.code.academy.garagebuddiesapi.user.service.UserService;
@@ -48,7 +49,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping(value = ADD_CAR,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addCar (@RequestBody Car car, @PathVariable(userId) ObjectId id){
+    public void addCar (@RequestBody CarRegistrationData car, @PathVariable(userId) ObjectId id){
         userService.addCar(id, car);
     }
 

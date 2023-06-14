@@ -5,7 +5,7 @@ const saveUser = (user) => HTTP.post('/users', user);
 const updateUser = (user, userId) => HTTP.put(`/users/${userId}, user`);
 const deleteUser = (userid) => HTTP.delete(`/users/${userid}`);
 const login = (data) => HTTP.post('/login', data);
-const addCarToUserGarage = (data, userId) => HTTP.post('/users/${userId}/addCar');
+const addCarToUserGarage = (data, userId) => HTTP.post(`/users/${userId}/addCar`,data );
 
 export {
     getUser,

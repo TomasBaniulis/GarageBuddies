@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class LoginUser {
-    private final ObjectId id;
+    private final String id;
     private final String name;
     private final String surname;
     private final String username;
@@ -29,7 +29,7 @@ public class LoginUser {
     private final Set<String> roles;
 
     public LoginUser (User user ){
-        id = user.getId();
+        id = user.getId().toString();
         name = user.getName();
         surname = user.getSurname();
         username = user.getUsername();

@@ -4,12 +4,13 @@ import * as Yup from 'yup';
 import TextInputComponent from "./TextInputComponent";
 import FormSelectComponent from "./FormSelectComponent";
 import {addCarToUserGarage} from "../api/userApi";
-import DateFieldForCar from "./DateSelectorForCar";
-import dayjs from 'dayjs';
 import Copyright from "./Copyright";
 import * as React from "react";
 import {useState} from "react";
 import Container from "@mui/material/Container";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {DateField, LocalizationProvider} from "@mui/x-date-pickers";
+import {useSelector, useStore} from "react-redux";
 const carValidationSchema = Yup.object().shape(
     {
         vinCode:Yup.string()
@@ -30,10 +31,6 @@ const carValidationSchema = Yup.object().shape(
             .required("engine capacity is required"),
         power:Yup.number()
             .min(2, "power must be min 2 numbers"),
-        // dateOfProduction:Yup.date()
-        //     .required("production date is required"),
-        // technicalInspectionDate:Yup.date()
-        //     .required("technical inspection date is required"),
         mileage:Yup.number()
             .min(1, "lowest mileage can be 0 km")
             .required("car mileage is required")
@@ -42,14 +39,18 @@ const carValidationSchema = Yup.object().shape(
 
 const Car = () => {
 
+    const user = useSelector(state => state.user.user)
+
     const [showError, setShowError] = useState(false);
 
-    const onRegisterCar =(values, helpers)=>{
-        addCarToUserGarage(values)
-            .then((r)=>{
-                console.log("test:", values)
-                helpers.resetForm();
 
+
+
+    const onRegisterCar =(values, helpers)=>{
+        console.log("test:", values, user.id)
+        addCarToUserGarage(values, user.id )
+            .then((response)=>{
+                helpers.resetForm();
             })
             .catch((err)=>{
                 console.log(err);
@@ -57,6 +58,15 @@ const Car = () => {
             })
             .finally(()=>helpers.setSubmitting(false))
     }
+
+
+    const time = (date)=>{
+        return (
+            new Date(date).getFullYear() + "." + new Date(date).getMonth() > 9 ?   + "." + new Date(date).getDay()
+        )
+        };
+
+
 
     return(
 
@@ -81,11 +91,13 @@ const Car = () => {
 
             {props =>(
 
+
+
                 <Form>
                     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                     <Stack spacing={2} direction ='column'>
                         <Typography variant="h5">VEHICLE REGISTRATION:</Typography>
-                        {showError && <Alert severity="error">VEHICLE RREGISTRATION FAILED</Alert> }
+                        {showError && <Alert severity="error">VEHICLE REGISTRATION FAILED</Alert> }
                         <TextInputComponent error={props.touched.make && !!props.errors.make}
                                             name="make"
                                             label="Make"
@@ -98,16 +110,22 @@ const Car = () => {
                                             name="vinCode"
                                             label="Vin Code"
                         ></TextInputComponent>
-                        <DateFieldForCar name="dateOfProduction"
-                                         label="Date of production"
-                        ></DateFieldForCar>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateField label="Date of production"
+                                       format="YYYY-MM-DD"
+                                       onChange={date=>props.setFieldValue('dateOfProduction', time(date))}
+                            />
+                        </LocalizationProvider>
                         <TextInputComponent error={props.touched.mileage && !!props.errors.mileage}
                                             name="mileage"
                                             label="Mileage in Km"
                         ></TextInputComponent>
-                        <DateFieldForCar name="technicalInspectionDate"
-                                         label="Technical inspection date"
-                        ></DateFieldForCar>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateField label="Technical inspection date"
+                                       format="YYYY-MM-DD"
+                                       onChange={date=>props.setFieldValue('technicalInspectionDate', timeStamp(date))}
+                            />
+                        </LocalizationProvider>
                         <TextInputComponent error={props.touched.engineCapacity && !!props.errors.engineCapacity}
                                             name="engineCapacity"
                                             label="Engine Capacity"
@@ -118,22 +136,24 @@ const Car = () => {
                         ></TextInputComponent>
                         <FormSelectComponent name="fuel"
                                              label="Fuel"
+                                             properties={props}
                                              selections={[{id:7, value:"GAS"}, {id:8, value:"LPG"}, {id:9, value:"DIESEL"}]}>
                         </FormSelectComponent>
                         <FormSelectComponent name="transmission"
                                              label="Transmission"
+                                             properties={props}
                                              selections={[{id:5, value:"Manual"},{ id:6, value:"Automatic"}]}>
                         </FormSelectComponent>
                         <FormSelectComponent name="drivetrain"
                                              label="Drivetrain"
+                                             properties={props}
                                              selections={[{id:3, value:"2WD"}, {id:4, value:"4WD"}]}>
                         </FormSelectComponent>
                         <FormSelectComponent name="airConditioning"
                                              label="Air Conditioning"
+                                             properties={props}
                                              selections={[{id:1, value:"true"},{ id:2, value:"false"}]}>
                         </FormSelectComponent>
-
-
 
                     </Stack>
                     <Typography sx={{textAlign:'right', mt:2}}>
