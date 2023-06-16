@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class CarRegistrationData {
     private String vinCode;
+    private String registrationNumber;
     private String make;
     private String model;
     private Integer engineCapacity;
@@ -17,7 +18,7 @@ public class CarRegistrationData {
     private String transmission;
     private String drivetrain;
     private String airConditioning;
-    private String dateOfProduction;
-    private String technicalInspectionDate;
+    private Long dateOfProduction;
+    private Long technicalInspectionDate;
     private Integer mileage;
 }

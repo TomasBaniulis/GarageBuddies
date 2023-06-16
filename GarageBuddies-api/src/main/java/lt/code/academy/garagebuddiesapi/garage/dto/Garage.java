@@ -9,6 +9,7 @@ import lt.code.academy.garagebuddiesapi.garage.document.GarageDocument;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -25,17 +26,28 @@ public class Garage {
     private String password;
     private String passwordRepeat;
     private Set<Address> addresses;
-    private Set<RepairType> companyProfile;
+    private List<String> companyProfile;
     private String companyDescription;
     private Set<Evaluation> evaluations;
     private Double evaluation;
     private Set<User> customers;
     private Set <WorkPlace> workPlaces;
     private Set<RepairPrices> priceList;
-    private Set<CustomerComment> customerComments;
     private Set<CarRepair> allRepairs;
 
-    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Set<Address> addresses, Set<RepairType> companyProfile, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Set<WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CustomerComment> customerComments, Set<CarRepair> allRepairs) {
+    public Garage(String companyCode, String vatCode, String companyName, String email, String password, String passwordRepeat, Set<Address> addresses, List<String> companyProfile, String companyDescription) {
+        this.companyCode = companyCode;
+        this.vatCode = vatCode;
+        this.companyName = companyName;
+        this.email = email;
+        this.password = password;
+        this.passwordRepeat = passwordRepeat;
+        this.addresses = addresses;
+        this.companyProfile = companyProfile;
+        this.companyDescription = companyDescription;
+    }
+
+    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Set<Address> addresses, List<String> companyProfile, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Set<WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CarRepair> allRepairs) {
         this.id = id;
         this.companyCode = companyCode;
         this.vatCode = vatCode;
@@ -50,7 +62,6 @@ public class Garage {
         this.customers = customers;
         this.workPlaces = workPlaces;
         this.priceList = priceList;
-        this.customerComments = customerComments;
         this.allRepairs = allRepairs;
     }
 
@@ -69,7 +80,6 @@ public class Garage {
                 garageDocument.getCustomers(),
                 garageDocument.getWorkPlaces(),
                 garageDocument.getPriceList(),
-                garageDocument.getCustomerComments(),
                 garageDocument.getAllRepair());
     }
 }

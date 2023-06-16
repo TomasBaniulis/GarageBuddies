@@ -1,20 +1,20 @@
 package lt.code.academy.garagebuddiesapi.data;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.Set;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
+
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Car {
     private ObjectId id;
     private String vinCode;
+    private String registrationNumber;
     private String make;
     private String model;
     private Integer engineCapacity;
@@ -22,17 +22,18 @@ public class Car {
     private Integer power;
     private String transmission;
     private String drivetrain;
-    private Boolean airConditioning;
-    private String dateOfProduction;
-    private String technicalInspectionDate;
+    private String airConditioning;
+    private LocalDate dateOfProduction;
+    private LocalDate technicalInspectionDate;
     private Integer mileage;
     private Set<CarRepair> repairHistory;
     private NextEngineOilChange nextEngineOilChange;
     private NextTransmissionOilChange nextTransmissionOilChange;
 
 
-    public Car(String vinCode, String make, String model, Integer engineCapacity, String fuel, Integer power, String transmission, String drivetrain, Boolean airConditioning, String dateOfProduction, String technicalInspectionDate, Integer mileage, Set<CarRepair> repairHistory, NextEngineOilChange nextEngineOilChange, NextTransmissionOilChange nextTransmissionOilChange) {
+    public Car(String vinCode, String registrationNumber, String make, String model, Integer engineCapacity, String fuel, Integer power, String transmission, String drivetrain, String airConditioning, LocalDate dateOfProduction, LocalDate technicalInspectionDate, Integer mileage, Set<CarRepair> repairHistory, NextEngineOilChange nextEngineOilChange, NextTransmissionOilChange nextTransmissionOilChange) {
         this.vinCode = vinCode;
+        this.registrationNumber = registrationNumber;
         this.make = make;
         this.model = model;
         this.engineCapacity = engineCapacity;
@@ -48,7 +49,6 @@ public class Car {
         this.nextEngineOilChange = nextEngineOilChange;
         this.nextTransmissionOilChange = nextTransmissionOilChange;
     }
-
 
 
 }

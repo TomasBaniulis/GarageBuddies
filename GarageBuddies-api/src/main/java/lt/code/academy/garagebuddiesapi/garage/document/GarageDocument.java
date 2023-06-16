@@ -10,6 +10,7 @@ import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -25,14 +26,13 @@ public class GarageDocument {
     private String email;
     private String password;
     private Set<Address> addresses;
-    private Set<RepairType> companyProfile;
+    private List <String> companyProfile;
     private String companyDescription;
     private Double evaluation;
     private Set<Evaluation> evaluations;
     private Set<User> customers;
     private Set<WorkPlace> workPlaces;
     private Set<RepairPrices> priceList;
-    private Set<CustomerComment> customerComments;
     private Set<CarRepair> allRepair;
 
     public static GarageDocument convert (Garage garage){
@@ -50,7 +50,6 @@ public class GarageDocument {
                 garage.getCustomers(),
                 garage.getWorkPlaces(),
                 garage.getPriceList(),
-                garage.getCustomerComments(),
                 garage.getAllRepairs());
     }
 }

@@ -43,9 +43,6 @@ const Car = () => {
 
     const [showError, setShowError] = useState(false);
 
-
-
-
     const onRegisterCar =(values, helpers)=>{
         console.log("test:", values, user.id)
         addCarToUserGarage(values, user.id )
@@ -59,13 +56,9 @@ const Car = () => {
             .finally(()=>helpers.setSubmitting(false))
     }
 
-
-    const time = (date)=>{
-        return (
-            new Date(date).getFullYear() + "." + new Date(date).getMonth() > 9 ?   + "." + new Date(date).getDay()
-        )
-        };
-
+    function time (date)  {
+        return  new Date(date).getTime();
+            }
 
 
     return(
@@ -123,7 +116,7 @@ const Car = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateField label="Technical inspection date"
                                        format="YYYY-MM-DD"
-                                       onChange={date=>props.setFieldValue('technicalInspectionDate', timeStamp(date))}
+                                       onChange={date=>props.setFieldValue('technicalInspectionDate', time(date))}
                             />
                         </LocalizationProvider>
                         <TextInputComponent error={props.touched.engineCapacity && !!props.errors.engineCapacity}

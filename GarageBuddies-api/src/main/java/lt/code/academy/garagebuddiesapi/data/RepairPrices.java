@@ -5,7 +5,7 @@ import org.bson.types.ObjectId;
 import java.util.UUID;
 
 public class RepairPrices {
-    private ObjectId id;
+    private UUID id;
     private RepairType repairType;
     private Double price;
 

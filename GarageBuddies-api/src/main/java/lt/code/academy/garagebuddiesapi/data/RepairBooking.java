@@ -7,11 +7,11 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class RepairBooking {
-    private ObjectId id;
+    private UUID id;
     private RepairType repairType;
     private ObjectId customerId;
     private ObjectId garageId;
-    private UUID carId;
+    private String CarRegistrationNumber;
     private String additionalComments;
     private LocalDate date;
 }

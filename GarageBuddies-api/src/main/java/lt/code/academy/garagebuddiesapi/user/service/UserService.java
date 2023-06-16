@@ -1,10 +1,7 @@
 package lt.code.academy.garagebuddiesapi.user.service;
 
 import lombok.AllArgsConstructor;
-import lt.code.academy.garagebuddiesapi.data.Car;
-import lt.code.academy.garagebuddiesapi.data.CarRegistrationData;
-import lt.code.academy.garagebuddiesapi.data.RepairBooking;
-import lt.code.academy.garagebuddiesapi.data.Role;
+import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
 import lt.code.academy.garagebuddiesapi.user.document.UserDocument;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
@@ -16,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 @AllArgsConstructor
@@ -55,20 +54,50 @@ public class UserService implements UserDetailsService {
     }
 
     public void updateUser (User user){
-        showUserById(user.getId());
         userRepository.save(UserDocument.convert(user));
     }
 
-    public  void addCar (ObjectId id, CarRegistrationData car){
-//        User user = showUserById(id);
-//        Set<Car> cars = user.getCars();
-//        cars.add(car);
-//        user.setCars(cars);
-        System.out.println("pagaminimo data:" + car.getDateOfProduction());
-        System.out.println("pagaminimo data:" + car.getMake());
-        System.out.println("pagaminimo data:" + car.getFuel());
-        System.out.println("pagaminimo data:" + car.getAirConditioning());
-//        updateUser(user);
+    public void updateUserContactInfo (ObjectId id, User userData){
+        User user = showUserById(id);
+        user.setName(userData.getName());
+        user.setUsername(userData.getSurname());
+        user.setUsername(userData.getUsername());
+        user.setEmail(userData.getEmail());
+        user.setPassword(userData.getPassword());
+        user.setPhoneNumber(userData.getPhoneNumber());
+        user.setAddress(userData.getAddress());
+        userRepository.save(UserDocument.convert(user));
+    }
+
+
+    public  void addCar (ObjectId id, CarRegistrationData carData){
+        LocalDate dateOFProduction = LocalDate.ofInstant(Instant.ofEpochMilli(carData.getDateOfProduction()), TimeZone.getDefault().toZoneId());
+        LocalDate technicalInspectionDate = LocalDate.ofInstant(Instant.ofEpochMilli(carData.getTechnicalInspectionDate()), TimeZone.getDefault().toZoneId());
+        Set<CarRepair> repairsHistory = new HashSet<>();
+        NextEngineOilChange nextEngineOilChange = new NextEngineOilChange();
+        NextTransmissionOilChange nextTransmissionOilChange = new NextTransmissionOilChange();
+
+        Car car = new Car( carData.getVinCode(),
+                carData.getRegistrationNumber(),
+                carData.getMake(),
+                carData.getModel(),
+                carData.getEngineCapacity(),
+                carData.getFuel(),
+                carData.getPower(),
+                carData.getTransmission(),
+                carData.getDrivetrain(),
+                carData.getAirConditioning(),
+                dateOFProduction,
+                technicalInspectionDate,
+                carData.getMileage(),
+                repairsHistory,
+                nextEngineOilChange,
+                nextTransmissionOilChange );
+        User user = showUserById(id);
+        Set<Car> cars = user.getCars();
+        cars.add(car);
+        user.setCars(cars);
+        updateUser(user);
     }
 
     public void addReservation(ObjectId id, RepairBooking reservation){
