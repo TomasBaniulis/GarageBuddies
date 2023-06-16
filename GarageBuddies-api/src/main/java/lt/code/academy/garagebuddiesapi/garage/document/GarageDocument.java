@@ -9,6 +9,7 @@ import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +30,7 @@ public class GarageDocument {
     private String email;
     private String password;
     private Address address;
-    private List <String> companyProfile;
+    private String numberOfWorkPlaces;
     private String companyDescription;
     private Double evaluation;
     private Set<Evaluation> evaluations;
@@ -47,7 +48,7 @@ public class GarageDocument {
                 garage.getEmail(),
                 encoder.encode(garage.getPassword()),
                 garage.getAddress(),
-                garage.getCompanyProfile(),
+                garage.getNumberOfWorkPlaces(),
                 garage.getCompanyDescription(),
                 garage.getEvaluation(),
                 garage.getEvaluations(),

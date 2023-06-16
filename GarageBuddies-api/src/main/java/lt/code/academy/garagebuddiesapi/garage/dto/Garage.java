@@ -28,7 +28,7 @@ public class Garage {
     private String password;
     private String passwordRepeat;
     private Address address;
-    private List<String> companyProfile;
+    private String numberOfWorkPlaces;
     private String companyDescription;
     private Set<Evaluation> evaluations;
     private Double evaluation;
@@ -37,7 +37,7 @@ public class Garage {
     private Set<RepairPrices> priceList;
     private Set<CarRepair> allRepairs;
 
-    public Garage(String companyCode, String vatCode, String companyName, String email, String password, String passwordRepeat, Address address, List<String> companyProfile, String companyDescription) {
+    public Garage(String companyCode, String vatCode, String companyName, String email, String password, String passwordRepeat, Address address, String numberOfWorkPlaces, String companyDescription) {
         this.companyCode = companyCode;
         this.vatCode = vatCode;
         this.companyName = companyName;
@@ -45,11 +45,11 @@ public class Garage {
         this.password = password;
         this.passwordRepeat = passwordRepeat;
         this.address = address;
-        this.companyProfile = companyProfile;
+        this.numberOfWorkPlaces = numberOfWorkPlaces;
         this.companyDescription = companyDescription;
     }
 
-    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Address address, List<String> companyProfile, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Set<WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CarRepair> allRepairs) {
+    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Address address, String numberOfWorkPlaces, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Set<WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CarRepair> allRepairs) {
         this.id = id;
         this.companyCode = companyCode;
         this.vatCode = vatCode;
@@ -57,7 +57,7 @@ public class Garage {
         this.email = email;
         this.password = password;
         this.address = address;
-        this.companyProfile = companyProfile;
+        this.numberOfWorkPlaces= numberOfWorkPlaces;
         this.companyDescription = companyDescription;
         this.evaluations = evaluations;
         this.evaluation = evaluation;
@@ -75,7 +75,7 @@ public class Garage {
                 garageDocument.getEmail(),
                 garageDocument.getPassword(),
                 garageDocument.getAddress(),
-                garageDocument.getCompanyProfile(),
+                garageDocument.getNumberOfWorkPlaces(),
                 garageDocument.getCompanyDescription(),
                 garageDocument.getEvaluations(),
                 garageDocument.getEvaluation(),

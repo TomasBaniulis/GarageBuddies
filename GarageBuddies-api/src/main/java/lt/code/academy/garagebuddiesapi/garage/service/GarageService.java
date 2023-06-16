@@ -1,14 +1,15 @@
 package lt.code.academy.garagebuddiesapi.garage.service;
 
 import lombok.AllArgsConstructor;
+import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.document.GarageDocument;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
 import lt.code.academy.garagebuddiesapi.garage.repository.GarageRepository;
+import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @AllArgsConstructor
 @Service
@@ -31,7 +32,37 @@ public class GarageService {
     }
 
     public void createGarage (Garage garage){
-        getGarageById(garage.getId());
+        Double evaluation = 0.0;
+        Set<Evaluation>evaluations = new HashSet<>();
+        Set<User> customers = new HashSet<>();
+        Set<RepairPrices> priceList = new HashSet<>();
+        Set<CarRepair>allRepairs = new HashSet<>();
+        Set<WorkPlace> workPlaces = new HashSet<>();
+        for (int i =0; i<Integer.parseInt(garage.getNumberOfWorkPlaces()); i++){
+            Set<RepairBooking>bookings=new HashSet<>();
+            List<RepairType> repairsList = new ArrayList<>();
+            repairsList.add(RepairType.ENGINE_OIL_CHANGE);
+            repairsList.add(RepairType.GLOW_PUG_CHANGE);
+            repairsList.add(RepairType.CLUTCH_CHANGE);
+            repairsList.add(RepairType.SPARK_PLUGS_CHANGE);
+            repairsList.add(RepairType.BRAKES_REPAIR);
+            repairsList.add(RepairType.ENGINE_REPAIR);
+            repairsList.add(RepairType.BATTERY_CHANGE);
+            repairsList.add(RepairType.SUSPENSION_REPAIR);
+            repairsList.add(RepairType.AIR_CONDITIONING_REPAIR);
+            workPlaces.add(new WorkPlace(
+                    UUID.randomUUID().toString(),
+                    repairsList,
+                    bookings));
+        }
+
+        garage.setEvaluation(evaluation);
+        garage.setEvaluations(evaluations);
+        garage.setCustomers(customers);
+        garage.setWorkPlaces(workPlaces);
+        garage.setPriceList(priceList);
+        garage.setAllRepairs(allRepairs);
+
         garageRepository.save(GarageDocument.convert(garage));
     }
 

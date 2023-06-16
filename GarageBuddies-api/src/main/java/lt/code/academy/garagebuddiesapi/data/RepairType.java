@@ -1,5 +1,8 @@
 package lt.code.academy.garagebuddiesapi.data;
 
+import lombok.Getter;
+
+@Getter
 public enum RepairType {
     ENGINE_OIL_CHANGE ("Engine oil change"),
     TRANSMISSION_OIL_CHANGE ("Transmission oil change"),

@@ -31,7 +31,7 @@ public class GarageController {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createNewGarage(Garage garage){
+    public void createNewGarage(@RequestBody Garage garage){
         garageService.createGarage(garage);
     }
 
