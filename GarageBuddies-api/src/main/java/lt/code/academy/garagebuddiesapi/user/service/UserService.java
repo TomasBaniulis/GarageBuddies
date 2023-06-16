@@ -118,7 +118,7 @@ public class UserService implements UserDetailsService {
         return  User.convert(userDocument);
     }
 
-    public void generateNotification (ObjectId userId, String header, String text){
+    public Notification generateNotification (ObjectId userId, String header, String text){
         Notification notification = new Notification(
                 UUID.randomUUID().toString(),
                 header,
@@ -127,6 +127,8 @@ public class UserService implements UserDetailsService {
         User user = showUserById(userId);
         user.getNotifications().add(notification);
         updateUser(user);
+        user.getNotifications().add(notification);
+        return notification;
     }
 
     public void deleteNotification (ObjectId userId, String notificationId){
@@ -151,5 +153,28 @@ public class UserService implements UserDetailsService {
         Garage garage = garageService.getGarageById(evaluationData.getGarageId());
         garage.getEvaluations().add(evaluation);
         garageService.updateGarage(garage);
+    }
+
+    public User checkMileage (ObjectId id) {
+        User user = showUserById(id);
+        Set<Car> cars = user.getCars();
+        if (user.getCars().isEmpty()) {
+            return user;
+        }
+        for (Car car : cars) {
+            if (car.getMileage() > 100000) {
+                String header = "TIMING BELT CHANGE";
+                String body = "Your mileage is over 100000km, please contact your garage, for Timing Belt change";
+                Notification timingNotification = generateNotification(id, header, body);
+                user.getNotifications().add(timingNotification);
+            }
+            if (car.getTransmission().equals("Automatic") && car.getMileage() > 60000) {
+                String header = "AUTOMATIC TRANSMISSION OIL CHANGE";
+                String body = "Your mileage is over 60000km, please contact your garage, for transmission oil change";
+                Notification atfNotification = generateNotification(id, header, body);
+                user.getNotifications().add(atfNotification);
+            }
+        }
+        return user;
     }
 }

@@ -12,6 +12,7 @@ const Content =()=> {
                 <Route path="/users/register" element={<User/>} />
                 <Route path="/login" element={<LoginPage/>} />
                 <Route path="/users/addCar" element={<Car/>} />
+                <Route path="/users" element={<User/>}/>
             </Routes>
 
 
