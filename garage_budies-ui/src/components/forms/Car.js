@@ -17,6 +17,8 @@ const carValidationSchema = Yup.object().shape(
             .min(17, "VIN code is 17 symbols")
             .max(17, "VIN code is 17 symbols")
             .required("VIN code is required"),
+        registrationNumber:Yup.string()
+            .required("registration number is required"),
         make:Yup.string()
             .min(2, "make must be min 2 symbols")
             .max(15, "make must be max 15 symbols")
@@ -66,6 +68,7 @@ const Car = () => {
         <Formik initialValues={
             {
                 vinCode:"",
+                registrationNumber:"",
                 make:"",
                 model:"",
                 engineCapacity:"",
@@ -102,6 +105,10 @@ const Car = () => {
                         <TextInputComponent error={props.touched.vinCode && !!props.errors.vinCode}
                                             name="vinCode"
                                             label="Vin Code"
+                        ></TextInputComponent>
+                        <TextInputComponent error={props.touched.registrationNumber && !!props.errors.registrationNumber}
+                                            name="registrationNumber"
+                                            label="Registration number"
                         ></TextInputComponent>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateField label="Date of production"
