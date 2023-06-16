@@ -50,4 +50,21 @@ public class UserDocument {
                 user.getRoles(),
                 user.getNotifications());
     }
+
+    public static UserDocument convertWithoutEncryption (User user){
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return new UserDocument(user.getId(),
+                user.getName(),
+                user.getSurname(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getPhoneNumber(),
+                user.getAddress(),
+                user.getCars(),
+                user.getFavouriteGarages(),
+                user.getUserBookings(),
+                user.getRoles(),
+                user.getNotifications());
+    }
 }

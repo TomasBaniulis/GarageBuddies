@@ -1,13 +1,7 @@
 package lt.code.academy.garagebuddiesapi.security;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lt.code.academy.garagebuddiesapi.data.Address;
-import lt.code.academy.garagebuddiesapi.data.Car;
-import lt.code.academy.garagebuddiesapi.data.RepairBooking;
-import lt.code.academy.garagebuddiesapi.data.Role;
+import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 
@@ -27,6 +21,7 @@ public class LoginUser {
     private final Set<ObjectId> favouriteGarages;
     private final Set<RepairBooking> userBookings;
     private final Set<String> roles;
+    private final Set<Notification>notifications;
 
     public LoginUser (User user ){
         id = user.getId().toString();
@@ -40,5 +35,6 @@ public class LoginUser {
         favouriteGarages = user.getFavouriteGarages();
         userBookings = user.getUserBookings();
         roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
+        notifications = user.getNotifications();
     }
 }

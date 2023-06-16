@@ -52,6 +52,7 @@ public class UserService implements UserDetailsService {
         user.setFavouriteGarages(garages);
         user.setUserBookings(bookings);
         user.setRoles(roles);
+        user.setNotifications(notifications);
         userRepository.save(UserDocument.convert(user));
     }
     public void deleteUser (ObjectId id){
@@ -59,7 +60,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void updateUser (User user){
-        userRepository.save(UserDocument.convert(user));
+        userRepository.save(UserDocument.convertWithoutEncryption(user));
     }
 
     public void updateUserContactInfo (ObjectId id, User userData){

@@ -19,7 +19,6 @@ public class LoginController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public LoginUser login(@AuthenticationPrincipal User user){
-        User updateduser = userService.checkMileage(user.getId());
         return new LoginUser(user);
     }
 
