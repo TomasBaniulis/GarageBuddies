@@ -7,10 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lt.code.academy.garagebuddiesapi.data.RepairBooking;
-import lt.code.academy.garagebuddiesapi.data.Role;
-import lt.code.academy.garagebuddiesapi.data.Address;
-import lt.code.academy.garagebuddiesapi.data.Car;
+import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.user.document.UserDocument;
 import org.bson.types.ObjectId;
 import org.springframework.security.core.GrantedAuthority;
@@ -47,8 +44,9 @@ public class User implements UserDetails {
     private Set<ObjectId> favouriteGarages;
     private Set<RepairBooking> userBookings;
     private Set<Role> roles;
+    private Set<Notification> notifications;
 
-    public User(ObjectId id, String name, String surname, String username, String email, String password, String phoneNumber, Address address, Set<Car> cars, Set<ObjectId> favouriteGarages, Set<RepairBooking> userBookings, Set<Role> roles) {
+    public User(ObjectId id, String name, String surname, String username, String email, String password, String phoneNumber, Address address, Set<Car> cars, Set<ObjectId> favouriteGarages, Set<RepairBooking> userBookings, Set<Role> roles, Set<Notification> notifications) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -61,6 +59,7 @@ public class User implements UserDetails {
         this.favouriteGarages = favouriteGarages;
         this.userBookings = userBookings;
         this.roles = roles;
+        this.notifications=notifications;
     }
 
     public static User convert (UserDocument userDocument){
@@ -75,7 +74,8 @@ public class User implements UserDetails {
                 userDocument.getCars(),
                 userDocument.getFavouriteGarages(),
                 userDocument.getUserBookings(),
-                userDocument.getRoles());
+                userDocument.getRoles(),
+                userDocument.getNotifications());
     }
 
     @Override

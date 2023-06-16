@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
+import java.util.UUID;
 @AllArgsConstructor
 @Setter
 @Getter
-public class NextTransmissionOilChange {
-    Integer changedAtMileage;
-    Integer nextChangeMileage;
+public class Notification {
+    private final String id;
+    private final String Header;
+    private final String NotificationText;
+
 }

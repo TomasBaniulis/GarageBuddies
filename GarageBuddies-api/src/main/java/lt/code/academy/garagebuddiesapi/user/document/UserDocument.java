@@ -4,11 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lt.code.academy.garagebuddiesapi.data.RepairBooking;
-import lt.code.academy.garagebuddiesapi.data.Role;
+import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
-import lt.code.academy.garagebuddiesapi.data.Address;
-import lt.code.academy.garagebuddiesapi.data.Car;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -35,6 +32,7 @@ public class UserDocument {
     private Set<ObjectId> favouriteGarages;
     private Set<RepairBooking> userBookings;
     private Set<Role> roles;
+    private Set<Notification> notifications;
 
     public static UserDocument convert (User user){
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -43,12 +41,13 @@ public class UserDocument {
                 user.getSurname(),
                 user.getUsername(),
                 user.getEmail(),
-                encoder.encode(user.getPassword()),
+                user.getPassword(),
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getCars(),
                 user.getFavouriteGarages(),
                 user.getUserBookings(),
-                user.getRoles());
+                user.getRoles(),
+                user.getNotifications());
     }
 }

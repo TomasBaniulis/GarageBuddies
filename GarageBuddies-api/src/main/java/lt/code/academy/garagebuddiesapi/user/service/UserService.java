@@ -3,6 +3,8 @@ package lt.code.academy.garagebuddiesapi.user.service;
 import lombok.AllArgsConstructor;
 import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
+import lt.code.academy.garagebuddiesapi.garage.repository.GarageRepository;
+import lt.code.academy.garagebuddiesapi.garage.service.GarageService;
 import lt.code.academy.garagebuddiesapi.user.document.UserDocument;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import lt.code.academy.garagebuddiesapi.user.exception.BusyUsernameException;
@@ -16,12 +18,14 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final GarageService garageService;
 
     public User showUserById (ObjectId id){
         return User.convert(Objects.requireNonNull(userRepository.findById(id).orElse(null)));
@@ -43,6 +47,7 @@ public class UserService implements UserDetailsService {
         Set<Car> cars = new HashSet<>();
         Set<ObjectId> garages = new HashSet<>();
         Set < RepairBooking> bookings = new HashSet<>();
+        Set <Notification> notifications = new HashSet<>();
         user.setCars(cars);
         user.setFavouriteGarages(garages);
         user.setUserBookings(bookings);
@@ -66,7 +71,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(userData.getPassword());
         user.setPhoneNumber(userData.getPhoneNumber());
         user.setAddress(userData.getAddress());
-        userRepository.save(UserDocument.convert(user));
+        updateUser(user);
     }
 
 
@@ -111,5 +116,40 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDocument userDocument = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("user %s not found", username)));
         return  User.convert(userDocument);
+    }
+
+    public void generateNotification (ObjectId userId, String header, String text){
+        Notification notification = new Notification(
+                UUID.randomUUID().toString(),
+                header,
+                text);
+
+        User user = showUserById(userId);
+        user.getNotifications().add(notification);
+        updateUser(user);
+    }
+
+    public void deleteNotification (ObjectId userId, String notificationId){
+        User user = showUserById(userId);
+        Set <Notification> notifications = user.getNotifications()
+                .stream()
+                .filter(notification-> !notification.getId().equals(notificationId))
+                .collect(Collectors.toSet());
+        user.setNotifications(notifications);
+        updateUser(user);
+    }
+
+    public void createEvaluation ( Evaluation evaluationData){
+        Evaluation evaluation = new Evaluation(UUID.randomUUID().toString(),
+                evaluationData.getGarageId(),
+                evaluationData.getUserId(),
+                evaluationData.getEvaluation(),
+                LocalDate.now(),
+                evaluationData.getComment()
+                );
+
+        Garage garage = garageService.getGarageById(evaluationData.getGarageId());
+        garage.getEvaluations().add(evaluation);
+        garageService.updateGarage(garage);
     }
 }

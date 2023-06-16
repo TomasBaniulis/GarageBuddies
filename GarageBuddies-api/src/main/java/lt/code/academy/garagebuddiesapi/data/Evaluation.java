@@ -13,9 +13,17 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 public class Evaluation {
-
+    private String evaluationId;
+    private ObjectId garageId;
     private ObjectId userId;
     private Integer evaluation ;
     private LocalDate evaluationDate;
     private String comment;
+
+    public Evaluation(ObjectId garageId, ObjectId userId, Integer evaluation, String comment) {
+        this.garageId = garageId;
+        this.userId = userId;
+        this.evaluation = evaluation;
+        this.comment = comment;
+    }
 }
