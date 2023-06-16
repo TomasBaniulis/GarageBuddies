@@ -3,7 +3,6 @@ package lt.code.academy.garagebuddiesapi.user.service;
 import lombok.AllArgsConstructor;
 import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
-import lt.code.academy.garagebuddiesapi.garage.repository.GarageRepository;
 import lt.code.academy.garagebuddiesapi.garage.service.GarageService;
 import lt.code.academy.garagebuddiesapi.user.document.UserDocument;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
@@ -81,7 +80,6 @@ public class UserService implements UserDetailsService {
         user.setAddress(userData.getAddress());
         updateUser(user);
     }
-
 
     public  void addCar (ObjectId id, CarRegistrationData carData){
         LocalDate dateOFProduction = LocalDate.ofInstant(Instant.ofEpochMilli(carData.getDateOfProduction()), TimeZone.getDefault().toZoneId());
@@ -177,9 +175,7 @@ public class UserService implements UserDetailsService {
 
         seller.setCars(cars);
         updateUser(seller);
-
     }
-
 
     public User checkMileage (ObjectId id) {
         User user = showUserById(id);

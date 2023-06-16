@@ -1,5 +1,6 @@
 package lt.code.academy.garagebuddiesapi.garage.document;
 
+import io.jsonwebtoken.io.Encoders;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,8 @@ import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Set;
@@ -25,7 +28,7 @@ public class GarageDocument {
     private String companyName;
     private String email;
     private String password;
-    private Set<Address> addresses;
+    private Address address;
     private List <String> companyProfile;
     private String companyDescription;
     private Double evaluation;
@@ -36,13 +39,14 @@ public class GarageDocument {
     private Set<CarRepair> allRepair;
 
     public static GarageDocument convert (Garage garage){
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new GarageDocument(garage.getId(),
                 garage.getCompanyCode(),
                 garage.getVatCode(),
                 garage.getCompanyName(),
                 garage.getEmail(),
-                garage.getPassword(),
-                garage.getAddresses(),
+                encoder.encode(garage.getPassword()),
+                garage.getAddress(),
                 garage.getCompanyProfile(),
                 garage.getCompanyDescription(),
                 garage.getEvaluation(),
