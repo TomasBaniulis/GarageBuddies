@@ -41,7 +41,7 @@ public class UserDocument {
                 user.getSurname(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getPassword(),
+                encoder.encode(user.getPassword()),
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getCars(),
