@@ -8,6 +8,7 @@ import lt.code.academy.garagebuddiesapi.garage.service.GarageService;
 import lt.code.academy.garagebuddiesapi.user.document.UserDocument;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import lt.code.academy.garagebuddiesapi.user.exception.BusyUsernameException;
+import lt.code.academy.garagebuddiesapi.user.exception.CarNotFoundException;
 import lt.code.academy.garagebuddiesapi.user.repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,12 @@ public class UserService implements UserDetailsService {
     public User showUserById (ObjectId id){
         return User.convert(Objects.requireNonNull(userRepository.findById(id).orElse(null)));
     }
+
+    public User showUserByUsername(String username) throws UsernameNotFoundException {
+        UserDocument userDocument = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("user %s not found", username)));
+        return  User.convert(userDocument);
+    }
+
     public List<User> showAllUsers (){
         return userRepository.findAll()
                 .stream()
@@ -155,6 +162,24 @@ public class UserService implements UserDetailsService {
         garage.getEvaluations().add(evaluation);
         garageService.updateGarage(garage);
     }
+
+    public void sellCar (ObjectId sellerId, String buyerUserName, String registrationNumber){
+        User seller = showUserById(sellerId);
+        Car car = seller.getCars().stream().filter(car1 -> car1.getRegistrationNumber().equals(registrationNumber)).findFirst().orElseThrow(()->new CarNotFoundException());
+        User buyer = showUserByUsername(buyerUserName);
+
+        buyer.getCars().add(car);
+        updateUser(buyer);
+
+        Set<Car> cars = seller.getCars().stream()
+                .filter(c ->!c.getRegistrationNumber().equals(registrationNumber))
+                .collect(Collectors.toSet());
+
+        seller.setCars(cars);
+        updateUser(seller);
+
+    }
+
 
     public User checkMileage (ObjectId id) {
         User user = showUserById(id);
