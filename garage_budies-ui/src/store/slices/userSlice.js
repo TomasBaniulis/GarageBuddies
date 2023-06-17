@@ -22,14 +22,15 @@ const userSlice = createSlice(
                 return initialState;
             },
             addCar (state, action) {
-                const car = action.payload.car;
-                state.cars.push(car);
+                const car = action.payload.user.car;
+                state.user.cars.push(car);
             }
         }
     }
 );
 
-const getUserFromLocalStorage =() => getFromLocalStorage('user') || initialState;
+const getUserFromLocalStorage =() => getFromLocalStorage('user') || initialState
+
 export default userSlice.reducer;
 export const {addUser, removeUser,addCar} = userSlice.actions
 export { getUserFromLocalStorage}
