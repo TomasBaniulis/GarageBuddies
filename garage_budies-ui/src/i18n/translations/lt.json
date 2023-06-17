@@ -1,8 +1,12 @@
 {
   "user": {
+    "header": "VARTOTOJO REGISTRACIJA",
     "name": "Vardas",
     "surname": "Pavardė",
-    "username": "Vartotojo vardas",
+    "username": {
+      "username": "Vartotojo vardas",
+      "error" : "Jūsų pasirinktas vartotojo vardas jau užimtas"
+    },
     "email": "El. paštas",
     "password": "Slaptažodis",
     "passwordRepeat": "Slpatažodžio patvirtinimas",
@@ -22,10 +26,10 @@
     "dateOfProduction": "Pagaminimo data",
     "mileage": "Rida KM",
     "inspectionDate": "Sekančios tech apžiūros data",
-    "engineCapacity":"Variklio darbinis tūris ccm",
+    "engineCapacity": "Variklio darbinis tūris ccm",
     "power": "Galia kW",
     "fuel": "Kuras",
-    "transmission":"Transmisija",
+    "transmission": "Transmisija",
     "driveTrain": "Varančioji ašis",
     "airConditioning": "Oro kondicionavimas",
     "gas": "GAS",
@@ -34,15 +38,24 @@
     "manual": "manual",
     "automatic": "automatic",
     "register": "REGISTER"
-
   },
   "dashBoard": {
+    "garageBuddies": "AutoBIčiuliai",
     "main": "PAGRINDINIS",
     "cars": "PRIDĖTI AUTO",
     "garages": "SERVISAI",
-    "notification":"NPRANEŠIMAI",
+    "notification": "PRANEŠIMAI",
     "pageSettings": "Puslapio nustatymai",
     "userSettings": "Vartotojo nustatymai",
     "logOut": "Išeiti"
+  },
+  "login": {
+    "header": "Prisijungti prie Auto Bičiulių paskyros",
+    "username": "vartotojo vardas",
+    "password": "slaptažodis",
+    "rememberMe": "Prisiminti mane",
+    "forgotPsw": "Pamiršote slaptažodį?",
+    "dontHaveAcc": "Neturite paskyros? Registruokitės",
+    "signIn": "PRISIJUNGTI"
   }
 }

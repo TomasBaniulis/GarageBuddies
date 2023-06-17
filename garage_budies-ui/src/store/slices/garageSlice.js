@@ -2,21 +2,21 @@ import {createSlice} from "@reduxjs/toolkit";
 import {showGarageDetails} from "../../components/api/garageAPI";
 import {addToLocalStorage, deleteFromLocalStorage, getFromLocalStorage} from "../../storage/localStorage";
 
-const initialState =  {
-    garage:null
+const initialState = {
+    garage: null
 }
 
 const garageSlice = createSlice(
     {
-        name:'garage',
+        name: 'garage',
         initialState,
-        reducers:{
-            addGarage(state, {payload:garage}){
+        reducers: {
+            addGarage(state, {payload: garage}) {
                 console.log(garage)
                 addToLocalStorage('garage', garage)
                 return garage;
             },
-            removeGarage(){
+            removeGarage() {
                 deleteFromLocalStorage('garage')
                 return initialState;
             }
@@ -26,8 +26,8 @@ const garageSlice = createSlice(
 
 const getGarageFromLocalStorage = () => getFromLocalStorage('garage') || initialState
 
-export default  garageSlice.reducer;
-export const {addGarage,removeGarage}=garageSlice.actions;
+export default garageSlice.reducer;
+export const {addGarage, removeGarage} = garageSlice.actions;
 export {getGarageFromLocalStorage}
 
 

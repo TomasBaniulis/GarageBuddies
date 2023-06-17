@@ -5,5 +5,5 @@ const getGarages = () => HTTP.get("/garages");
 const showGarageDetails = (garageId) => HTTP.get(`/garages/${garageId}`);
 
 export {
-    saveGarage, getGarages,showGarageDetails
+    saveGarage, getGarages, showGarageDetails
 }

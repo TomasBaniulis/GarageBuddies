@@ -1,10 +1,11 @@
 {
   "user": {
+    "header": "USER REGISTRATION",
     "name": "Name",
     "surname": "Surname",
     "username": {
       "username": "username",
-      "exist" : "username you are trying to use is already taken"
+      "error" : "username you are trying to use is already taken"
     },
     "email": "Email",
     "password": "password",
@@ -37,9 +38,9 @@
     "manual": "manual",
     "automatic": "automatic",
     "register": "REGISTER"
-
   },
   "dashBoard": {
+    "garageBuddies": "GarageBuddies",
     "main": "MAIN",
     "cars": "ADD CAR",
     "garages": "GARAGES",
@@ -47,6 +48,16 @@
     "pageSettings": "Page settings",
     "userSettings": "User settings",
     "logOut": "Log out"
+  },
+
+  "login": {
+    "header": "Sign in to Garage Buddies",
+    "username": "username",
+    "password": "password",
+    "rememberMe": "Remember me",
+    "forgotPsw": "Forgot password?",
+    "dontHaveAcc": "Doesn't have an account? Sign up",
+    "signIn": "SIGN IN"
   }
 
 }

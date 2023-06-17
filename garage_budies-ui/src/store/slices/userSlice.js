@@ -1,27 +1,27 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {addToLocalStorage, deleteFromLocalStorage, getFromLocalStorage} from "../../storage/localStorage";
 
-const initialState= {
-    user:null,
+const initialState = {
+    user: null,
     jwtToken: null
 }
 
 const userSlice = createSlice(
     {
-        name:'user',
+        name: 'user',
         initialState,
-        reducers:{
-            addUser(state, {payload: user}){
+        reducers: {
+            addUser(state, {payload: user}) {
                 console.log(user)
                 addToLocalStorage('user', user)
                 return user;
             },
 
-            removeUser (){
+            removeUser() {
                 deleteFromLocalStorage('user')
                 return initialState;
             },
-            addCar (state, action) {
+            addCar(state, action) {
                 const car = action.payload.user.car;
                 state.user.cars.push(car);
             }
@@ -29,8 +29,8 @@ const userSlice = createSlice(
     }
 );
 
-const getUserFromLocalStorage =() => getFromLocalStorage('user') || initialState
+const getUserFromLocalStorage = () => getFromLocalStorage('user') || initialState
 
 export default userSlice.reducer;
-export const {addUser, removeUser,addCar} = userSlice.actions
-export { getUserFromLocalStorage}
+export const {addUser, removeUser, addCar} = userSlice.actions
+export {getUserFromLocalStorage}
