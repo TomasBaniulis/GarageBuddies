@@ -10,9 +10,39 @@
     "address": "Adresas",
     "buildingNumber": "Namo numerisr",
     "street": "Gatvė",
-    "town": "Miestas"
+    "town": "Miestas",
+    "register": "REGISTRUOTIS"
   },
   "car": {
+    "vehicleRegistration": "AUTOMOBILO REGISTRACIJA:",
+    "make": "Markė",
+    "model": "Modelis",
+    "vinCode": "Vin kodas",
+    "registrationNumber": "Valstybinis numeris",
+    "dateOfProduction": "Pagaminimo data",
+    "mileage": "Rida KM",
+    "inspectionDate": "Sekančios tech apžiūros data",
+    "engineCapacity":"Variklio darbinis tūris ccm",
+    "power": "Galia kW",
+    "fuel": "Kuras",
+    "transmission":"Transmisija",
+    "driveTrain": "Varančioji ašis",
+    "airConditioning": "Oro kondicionavimas",
+    "gas": "GAS",
+    "lpg": "LPG",
+    "diesel": "DIESEL",
+    "manual": "manual",
+    "automatic": "automatic",
+    "register": "REGISTER"
 
+  },
+  "dashBoard": {
+    "main": "PAGRINDINIS",
+    "cars": "PRIDĖTI AUTO",
+    "garages": "SERVISAI",
+    "notification":"NPRANEŠIMAI",
+    "pageSettings": "Puslapio nustatymai",
+    "userSettings": "Vartotojo nustatymai",
+    "logOut": "Išeiti"
   }
 }

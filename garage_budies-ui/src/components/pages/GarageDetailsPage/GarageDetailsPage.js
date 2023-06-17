@@ -4,8 +4,29 @@ import Paper from "@mui/material/Paper";
 import Chart from "../../Dashboard/Chart";
 import Deposits from "../../Dashboard/Deposits";
 import Copyright from "../../forms/Copyright";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {showGarageDetails} from "../../api/garageAPI";
+import {useDispatch, useSelector} from "react-redux";
+import {addGarage} from "../../../store/slices/garageSlice";
+import Orders from "../../Dashboard/Orders";
 
 const GarageDetailsPage = () =>{
+
+    const {garageId} = useParams();
+    const[loading, setLoading]=useState(true);
+    const dispatch=useDispatch();
+    const garageData = useSelector(state => state.garage.garage);
+
+
+    useEffect(() => {
+        showGarageDetails(garageId)
+            .then((data) => dispatch(addGarage({garage:data})))
+            .catch((error) => console.log(error))
+            .finally(()=>setLoading(false));
+        },[]
+    );
+
 
     return (
 

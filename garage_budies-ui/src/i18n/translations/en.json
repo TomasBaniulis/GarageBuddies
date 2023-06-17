@@ -13,9 +13,40 @@
     "address": "Address",
     "buildingNumber": "House number",
     "street": "Street",
-    "town": "Town"
+    "town": "Town",
+    "register": "REGISTER"
   },
   "car": {
+    "vehicleRegistration": "VEHICLE REGISTRATION:",
+    "make": "Make",
+    "model": "Model",
+    "vinCode": "Vin Code",
+    "registrationNumber": "Registration plate",
+    "dateOfProduction": "Date of production",
+    "mileage": "Mileage in KM",
+    "inspectionDate": "Technical inspection date",
+    "engineCapacity":"Engine capacity",
+    "power": "Power in kW",
+    "fuel": "Fuel",
+    "transmission":"Transmission",
+    "driveTrain": "Drive train",
+    "airConditioning": "air Conditioning",
+    "gas": "GAS",
+    "lpg": "LPG",
+    "diesel": "DIESEL",
+    "manual": "manual",
+    "automatic": "automatic",
+    "register": "REGISTER"
 
+  },
+  "dashBoard": {
+    "main": "MAIN",
+    "cars": "ADD CAR",
+    "garages": "GARAGES",
+    "notification":"NOTIFICATIONS",
+    "pageSettings": "Page settings",
+    "userSettings": "User settings",
+    "logOut": "Log out"
   }
+
 }

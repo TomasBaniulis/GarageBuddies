@@ -23,9 +23,25 @@ import Deposits from './Deposits';
 import Orders from './Orders';
 import Content from "../content/Content";
 import {BrowserRouter} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import DirectionsCarFilledSharpIcon from '@mui/icons-material/DirectionsCarFilledSharp';
 import {Avatar} from "@mui/material";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ListItemText from "@mui/material/ListItemText";
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
+import BuildIcon from "@mui/icons-material/Build";
+import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ListSubheader from "@mui/material/ListSubheader";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import LogoutIcon from "@mui/icons-material/Logout";
+import {removeUser} from "../../store/slices/userSlice";
+import {removeGarage} from "../../store/slices/garageSlice";
+import LanguageIcon from '@mui/icons-material/Language';
+import LanguageSwitcher from "../../i18n/LanguageSwitcher";
+import {useTranslation} from "react-i18next";
 
 
 const drawerWidth = 240;
@@ -84,6 +100,11 @@ export default function Dashboard() {
 
     const user = useSelector(state =>state.user.user);
 
+    const dispatch = useDispatch();
+    const onLogout = () => {
+        dispatch(removeUser());
+        dispatch(removeGarage());
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>
@@ -118,7 +139,7 @@ export default function Dashboard() {
                             GarageBuddies
                         </Typography>
                         {
-                            user ? <>< div sx={{mRight:"3rem"}}>{user.username}</div>   <Avatar
+                            user ? <>< div  >{user.username}   . </div>   <Avatar
                                 alt={user.username}
                                 src="https://youprobablyneedahaircut.com/wp-content/uploads/2021/11/shutterstock_1620107944-720x540.jpg.webp"
                                 sx={{ width: 40, height: 40 }}
@@ -141,9 +162,57 @@ export default function Dashboard() {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
+                        <React.Fragment>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <DashboardIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="MAIN"/>
+                            </ListItemButton>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <DriveEtaIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="CARS"/>
+                            </ListItemButton>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <BuildIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="GARAGES"/>
+                            </ListItemButton>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <NotificationImportantIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="NOTIFICATIONS"/>
+                            </ListItemButton>
+
+                    </React.Fragment>
                         <Divider sx={{ my: 1 }} />
-                        {secondaryListItems}
+                        <React.Fragment>
+                            <ListSubheader component="div" inset>
+                                Page settings
+                            </ListSubheader>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <LanguageIcon/>
+                                </ListItemIcon>
+                                <LanguageSwitcher/>
+                            </ListItemButton>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <SettingsIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="User setingsr"/>
+                            </ListItemButton>
+                            <ListItemButton onClick={onLogout}>
+                                <ListItemIcon>
+                                    <LogoutIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Log out"/>
+                            </ListItemButton>
+                        </React.Fragment>
                     </List>
                 </Drawer>
                 <Box
