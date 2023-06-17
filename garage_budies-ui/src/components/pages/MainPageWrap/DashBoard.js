@@ -11,10 +11,10 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import Content from "../content/Content";
+import Content from "../../content/Content";
 import {BrowserRouter, NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {Avatar} from "@mui/material";
+import {Avatar, Badge} from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -25,10 +25,10 @@ import NotificationImportantIcon from "@mui/icons-material/NotificationImportant
 import SettingsIcon from "@mui/icons-material/Settings";
 import ListSubheader from "@mui/material/ListSubheader";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {removeUser} from "../../store/slices/userSlice";
-import {removeGarage} from "../../store/slices/garageSlice";
+import {removeUser} from "../../../store/slices/userSlice";
+import {removeGarage} from "../../../store/slices/garageSlice";
 import LanguageIcon from '@mui/icons-material/Language';
-import LanguageSwitcher from "../../i18n/LanguageSwitcher";
+import LanguageSwitcher from "../../../i18n/LanguageSwitcher";
 import {useTranslation} from "react-i18next";
 
 
@@ -87,8 +87,16 @@ export default function Dashboard() {
     };
 
     const user = useSelector(state => state.user.user);
-
     const dispatch = useDispatch();
+    const messages = (user)=> {
+        if(user == null){
+            return "0"
+        }else if (user.notifications.length == null){
+            return 0
+    } else{
+        return user.notifications.length
+    }}
+
     const onLogout = () => {
         dispatch(removeUser());
         dispatch(removeGarage());
@@ -156,7 +164,7 @@ export default function Dashboard() {
                     <Divider/>
                     <List component="nav">
                         <React.Fragment>
-                            <ListItemButton>
+                            <ListItemButton component={NavLink} to="/users/main">
                                 <ListItemIcon>
                                     <DashboardIcon/>
                                 </ListItemIcon>
@@ -176,7 +184,9 @@ export default function Dashboard() {
                             </ListItemButton>
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <NotificationImportantIcon/>
+                                    <Badge badgeContent={messages(user)} color="secondary">
+                                    <NotificationImportantIcon />
+                                    </Badge>
                                 </ListItemIcon>
                                 <ListItemText primary={t('notification')}/>
                             </ListItemButton>

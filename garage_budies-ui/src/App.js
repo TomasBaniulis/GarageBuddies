@@ -1,5 +1,5 @@
 import {BrowserRouter} from "react-router-dom";
-import Dashboard from "./components/Dashboard/DashBoard";
+import Dashboard from "./components/pages/MainPageWrap/DashBoard";
 import {Provider} from "react-redux";
 import {Experimental_CssVarsProvider} from "@mui/material";
 import store from "./store/store";

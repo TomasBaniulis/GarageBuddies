@@ -27,24 +27,25 @@ public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
     private final GarageService garageService;
 
-    public User showUserById (ObjectId id){
+    public User showUserById(ObjectId id) {
         return User.convert(Objects.requireNonNull(userRepository.findById(id).orElse(null)));
     }
 
     public User showUserByUsername(String username) throws UsernameNotFoundException {
         UserDocument userDocument = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("user %s not found", username)));
-        return  User.convert(userDocument);
+        return User.convert(userDocument);
     }
 
-    public List<User> showAllUsers (){
+    public List<User> showAllUsers() {
         return userRepository.findAll()
                 .stream()
                 .map(User::convert)
                 .toList();
     }
-    public void createUser (User user){
+
+    public void createUser(User user) {
         Optional<UserDocument> username = userRepository.findByUsername(user.getUsername());
-        if(username.isPresent()){
+        if (username.isPresent()) {
             throw new BusyUsernameException();
         }
         Set<Role> roles = new HashSet<>();
@@ -52,8 +53,13 @@ public class UserService implements UserDetailsService {
         roles.add(userRole);
         Set<Car> cars = new HashSet<>();
         Set<ObjectId> garages = new HashSet<>();
-        Set < RepairBooking> bookings = new HashSet<>();
-        Set <Notification> notifications = new HashSet<>();
+        Set<RepairBooking> bookings = new HashSet<>();
+        Set<Notification> notifications = new HashSet<>();
+        notifications.add(new Notification(
+                UUID.randomUUID().toString(),
+                "CONGRATS ON REGISTRATION",
+                "Welcome in GarageBuddies community. Hope you'll have the best experience in maintaining your vehicles. GarageBuddies team."
+        ));
         user.setCars(cars);
         user.setFavouriteGarages(garages);
         user.setUserBookings(bookings);
@@ -61,15 +67,16 @@ public class UserService implements UserDetailsService {
         user.setNotifications(notifications);
         userRepository.save(UserDocument.convert(user));
     }
-    public void deleteUser (ObjectId id){
+
+    public void deleteUser(ObjectId id) {
         userRepository.deleteById(id);
     }
 
-    public void updateUser (User user){
+    public void updateUser(User user) {
         userRepository.save(UserDocument.convertWithoutEncryption(user));
     }
 
-    public void updateUserContactInfo (ObjectId id, User userData){
+    public void updateUserContactInfo(ObjectId id, User userData) {
         User user = showUserById(id);
         user.setName(userData.getName());
         user.setUsername(userData.getSurname());
@@ -81,14 +88,14 @@ public class UserService implements UserDetailsService {
         updateUser(user);
     }
 
-    public  void addCar (ObjectId id, CarRegistrationData carData){
+    public void addCar(ObjectId id, CarRegistrationData carData) {
         LocalDate dateOFProduction = LocalDate.ofInstant(Instant.ofEpochMilli(carData.getDateOfProduction()), TimeZone.getDefault().toZoneId());
         LocalDate technicalInspectionDate = LocalDate.ofInstant(Instant.ofEpochMilli(carData.getTechnicalInspectionDate()), TimeZone.getDefault().toZoneId());
         Set<CarRepair> repairsHistory = new HashSet<>();
         NextEngineOilChange nextEngineOilChange = new NextEngineOilChange();
         NextTransmissionOilChange nextTransmissionOilChange = new NextTransmissionOilChange();
 
-        Car car = new Car( carData.getVinCode(),
+        Car car = new Car(carData.getVinCode(),
                 carData.getRegistrationNumber(),
                 carData.getMake(),
                 carData.getModel(),
@@ -103,7 +110,7 @@ public class UserService implements UserDetailsService {
                 carData.getMileage(),
                 repairsHistory,
                 nextEngineOilChange,
-                nextTransmissionOilChange );
+                nextTransmissionOilChange);
         User user = showUserById(id);
         Set<Car> cars = user.getCars();
         cars.add(car);
@@ -111,7 +118,7 @@ public class UserService implements UserDetailsService {
         updateUser(user);
     }
 
-    public void addReservation(ObjectId id, RepairBooking reservation){
+    public void addReservation(ObjectId id, RepairBooking reservation) {
         User user = showUserById(id);
         Set<RepairBooking> reservations = user.getUserBookings();
         reservations.add(reservation);
@@ -121,10 +128,10 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDocument userDocument = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("user %s not found", username)));
-        return  User.convert(userDocument);
+        return User.convert(userDocument);
     }
 
-    public Notification generateNotification (ObjectId userId, String header, String text){
+    public Notification generateNotification(ObjectId userId, String header, String text) {
         Notification notification = new Notification(
                 UUID.randomUUID().toString(),
                 header,
@@ -137,47 +144,47 @@ public class UserService implements UserDetailsService {
         return notification;
     }
 
-    public void deleteNotification (ObjectId userId, String notificationId){
+    public void deleteNotification(ObjectId userId, String notificationId) {
         User user = showUserById(userId);
-        Set <Notification> notifications = user.getNotifications()
+        Set<Notification> notifications = user.getNotifications()
                 .stream()
-                .filter(notification-> !notification.getId().equals(notificationId))
+                .filter(notification -> !notification.getId().equals(notificationId))
                 .collect(Collectors.toSet());
         user.setNotifications(notifications);
         updateUser(user);
     }
 
-    public void createEvaluation ( Evaluation evaluationData){
+    public void createEvaluation(Evaluation evaluationData) {
         Evaluation evaluation = new Evaluation(UUID.randomUUID().toString(),
                 evaluationData.getGarageId(),
                 evaluationData.getUserId(),
                 evaluationData.getEvaluation(),
                 LocalDate.now(),
                 evaluationData.getComment()
-                );
+        );
 
         Garage garage = garageService.getGarageById(evaluationData.getGarageId());
         garage.getEvaluations().add(evaluation);
         garageService.updateGarage(garage);
     }
 
-    public void sellCar (ObjectId sellerId, String buyerUserName, String registrationNumber){
+    public void sellCar(ObjectId sellerId, String buyerUserName, String registrationNumber) {
         User seller = showUserById(sellerId);
-        Car car = seller.getCars().stream().filter(car1 -> car1.getRegistrationNumber().equals(registrationNumber)).findFirst().orElseThrow(()->new CarNotFoundException());
+        Car car = seller.getCars().stream().filter(car1 -> car1.getRegistrationNumber().equals(registrationNumber)).findFirst().orElseThrow(() -> new CarNotFoundException());
         User buyer = showUserByUsername(buyerUserName);
 
         buyer.getCars().add(car);
         updateUser(buyer);
 
         Set<Car> cars = seller.getCars().stream()
-                .filter(c ->!c.getRegistrationNumber().equals(registrationNumber))
+                .filter(c -> !c.getRegistrationNumber().equals(registrationNumber))
                 .collect(Collectors.toSet());
 
         seller.setCars(cars);
         updateUser(seller);
     }
 
-    public User checkMileage (ObjectId id) {
+    public User checkMileage(ObjectId id) {
         User user = showUserById(id);
         Set<Car> cars = user.getCars();
         if (user.getCars().isEmpty()) {

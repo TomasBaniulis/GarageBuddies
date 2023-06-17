@@ -4,8 +4,11 @@ import Paper from "@mui/material/Paper";
 import Chart from "../../Dashboard/Chart";
 import Deposits from "../../Dashboard/Deposits";
 import Copyright from "../../forms/Copyright";
+import Orders from "../../Dashboard/Orders";
 
-const userDetailsPage = () => {
+const UserDetailsPage = () => {
+
+
 
     return(
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -48,4 +51,4 @@ const userDetailsPage = () => {
     )
 }
 
-export default userDetailsPage;
+export default UserDetailsPage;
