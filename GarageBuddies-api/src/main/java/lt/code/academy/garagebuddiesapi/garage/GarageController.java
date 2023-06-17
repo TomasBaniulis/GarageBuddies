@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import static  lt.code.academy.garagebuddiesapi.EndPoint.*;
 
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
+import lt.code.academy.garagebuddiesapi.garage.dto.GarageDataForUser;
 import lt.code.academy.garagebuddiesapi.garage.service.GarageService;
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,8 @@ public class GarageController {
     }
 
     @GetMapping(value = GARAGE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Garage ShowGarage (@PathVariable(garageId)ObjectId id){
-        return garageService.getGarageById(id);
+    public GarageDataForUser ShowGarage (@PathVariable(garageId)ObjectId id){
+        return garageService.showGarageToUserById(id);
     }
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

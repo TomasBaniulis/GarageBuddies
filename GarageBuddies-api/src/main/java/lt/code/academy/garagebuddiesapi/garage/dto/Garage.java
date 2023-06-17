@@ -12,6 +12,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -33,7 +34,7 @@ public class Garage {
     private Set<Evaluation> evaluations;
     private Double evaluation;
     private Set<User> customers;
-    private Set <WorkPlace> workPlaces;
+    private Map<String, WorkPlace> workPlaces;
     private Set<RepairPrices> priceList;
     private Set<CarRepair> allRepairs;
 
@@ -49,7 +50,7 @@ public class Garage {
         this.companyDescription = companyDescription;
     }
 
-    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Address address, String numberOfWorkPlaces, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Set<WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CarRepair> allRepairs) {
+    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Address address, String numberOfWorkPlaces, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Map< String, WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CarRepair> allRepairs) {
         this.id = id;
         this.companyCode = companyCode;
         this.vatCode = vatCode;

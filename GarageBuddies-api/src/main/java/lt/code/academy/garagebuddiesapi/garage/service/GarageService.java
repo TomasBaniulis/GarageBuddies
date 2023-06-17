@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lt.code.academy.garagebuddiesapi.data.*;
 import lt.code.academy.garagebuddiesapi.garage.document.GarageDocument;
 import lt.code.academy.garagebuddiesapi.garage.dto.Garage;
+import lt.code.academy.garagebuddiesapi.garage.dto.GarageDataForUser;
 import lt.code.academy.garagebuddiesapi.garage.repository.GarageRepository;
 import lt.code.academy.garagebuddiesapi.user.dto.User;
 import org.bson.types.ObjectId;
@@ -27,6 +28,22 @@ public class GarageService {
         return Garage.convert(Objects.requireNonNull(garageRepository.findById(id).orElse(null)));
     }
 
+    public GarageDataForUser showGarageToUserById (ObjectId id){
+        Garage garage = getGarageById(id);
+        return new GarageDataForUser(garage.getId(),
+                garage.getCompanyCode(),
+                garage.getVatCode(),
+                garage.getCompanyName(),
+                garage.getEmail(),
+                garage.getAddress(),
+                garage.getNumberOfWorkPlaces(),
+                garage.getCompanyDescription(),
+                garage.getEvaluations(),
+                garage.getEvaluation(),
+                garage.getWorkPlaces(),
+                garage.getPriceList());
+    }
+
     public void deleteById (ObjectId id){
         garageRepository.deleteById(id);
     }
@@ -37,7 +54,7 @@ public class GarageService {
         Set<User> customers = new HashSet<>();
         Set<RepairPrices> priceList = new HashSet<>();
         Set<CarRepair>allRepairs = new HashSet<>();
-        Set<WorkPlace> workPlaces = new HashSet<>();
+        Map <String,WorkPlace> workPlaces = new HashMap<>();
         for (int i =0; i<Integer.parseInt(garage.getNumberOfWorkPlaces()); i++){
             Set<RepairBooking>bookings=new HashSet<>();
             List<RepairType> repairsList = new ArrayList<>();
@@ -50,7 +67,8 @@ public class GarageService {
             repairsList.add(RepairType.BATTERY_CHANGE);
             repairsList.add(RepairType.SUSPENSION_REPAIR);
             repairsList.add(RepairType.AIR_CONDITIONING_REPAIR);
-            workPlaces.add(new WorkPlace(
+            String workPlaceNumber = String.valueOf(i++);
+            workPlaces.put(workPlaceNumber ,new WorkPlace(
                     UUID.randomUUID().toString(),
                     repairsList,
                     bookings));

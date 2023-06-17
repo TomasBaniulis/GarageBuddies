@@ -52,7 +52,6 @@ public class UserDocument {
     }
 
     public static UserDocument convertWithoutEncryption (User user){
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new UserDocument(user.getId(),
                 user.getName(),
                 user.getSurname(),

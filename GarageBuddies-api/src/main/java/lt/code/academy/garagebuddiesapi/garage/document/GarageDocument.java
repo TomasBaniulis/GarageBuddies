@@ -15,6 +15,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -35,7 +36,7 @@ public class GarageDocument {
     private Double evaluation;
     private Set<Evaluation> evaluations;
     private Set<User> customers;
-    private Set<WorkPlace> workPlaces;
+    private Map<String, WorkPlace> workPlaces;
     private Set<RepairPrices> priceList;
     private Set<CarRepair> allRepair;
 
