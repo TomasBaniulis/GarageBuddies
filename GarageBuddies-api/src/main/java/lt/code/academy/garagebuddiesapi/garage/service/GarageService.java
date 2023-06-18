@@ -17,10 +17,14 @@ import java.util.*;
 public class GarageService {
 
     private final GarageRepository garageRepository;
-    public List<Garage> getAllGarages () {
-        return garageRepository.findAll()
+    public List<GarageDataForUser> getAllGarages () {
+
+        List <Garage> garages = garageRepository.findAll()
                 .stream()
                 .map(Garage::convert)
+                .toList();
+        return garages.stream()
+                .map(GarageDataForUser::convert)
                 .toList();
     }
 

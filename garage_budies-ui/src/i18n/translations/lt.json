@@ -57,5 +57,13 @@
     "forgotPsw": "Pamiršote slaptažodį?",
     "dontHaveAcc": "Neturite paskyros? Registruokitės",
     "signIn": "PRISIJUNGTI"
+  },
+  "garageList": {
+    "name": "Serviso pavadinmas",
+    "town": "Miestas",
+    "workPlaces": "Darbo vietų skaičius",
+    "evaluation": "Įvertinimas 5*",
+    "header": "AUTOBIČIULIŲ PATVIRTINTI AUTO SERVISAI",
+    "description": "Aprašymas"
   }
 }

@@ -58,6 +58,13 @@
     "forgotPsw": "Forgot password?",
     "dontHaveAcc": "Doesn't have an account? Sign up",
     "signIn": "SIGN IN"
+  },
+  "garageList": {
+    "name": "Company name",
+    "town": "Town",
+    "workPalaces": "Number of work places",
+    "evaluation": "Evaluation out of 5*",
+    "header": "GARAGE BUDDIES APPROVED GARAGE LIST"
   }
 
 }

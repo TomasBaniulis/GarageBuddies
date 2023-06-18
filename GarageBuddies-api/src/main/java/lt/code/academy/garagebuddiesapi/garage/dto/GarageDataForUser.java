@@ -30,4 +30,20 @@ public class GarageDataForUser {
     private Double evaluation;
     private Map<String, WorkPlace> workPlaces;
     private Set<RepairPrices> priceList;
+
+    public static GarageDataForUser convert (Garage garage){
+        return new GarageDataForUser(garage.getId(),
+                garage.getCompanyCode(),
+                garage.getVatCode(),
+                garage.getCompanyName(),
+                garage.getEmail(),
+                garage.getAddress(),
+                garage.getNumberOfWorkPlaces(),
+                garage.getCompanyDescription(),
+                garage.getEvaluations(),
+                garage.getEvaluation(),
+                garage.getWorkPlaces(),
+                garage.getPriceList());
+    }
 }
+

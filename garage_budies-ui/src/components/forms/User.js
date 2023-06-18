@@ -115,7 +115,7 @@ const User = () => {
                             sm={4}
                             md={7}
                             sx={{
-                                backgroundImage: 'url(https://www.gmparts.com/content/dam/gmparts/na/us/en/index/about-us/v2-assets/gmp-about-us-three-tiers-of-premium-gm-genuine-original-equipment-asset-l-xl-v2.jpg?imwidth=600)',
+                                backgroundImage: 'url(http://speedhunters-wp-production.s3.amazonaws.com/wp-content/uploads/2023/05/04231855/2023-Luftgekult-9_Trevor-Ryan-Speedhunters_004-680x453.jpg)',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundColor: (t) =>
                                     t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],

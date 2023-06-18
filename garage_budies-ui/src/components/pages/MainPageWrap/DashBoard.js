@@ -141,9 +141,9 @@ export default function Dashboard() {
                         </Typography>
                         {
                             user ? <>
-                                < div>{user.username} .</div>
+                                < div>{user.name} .</div>
                                 <Avatar
-                                    alt={user.username}
+                                    alt={user.name}
                                     src="https://youprobablyneedahaircut.com/wp-content/uploads/2021/11/shutterstock_1620107944-720x540.jpg.webp"
                                     sx={{width: 40, height: 40}}
                                 /> </> : <></>

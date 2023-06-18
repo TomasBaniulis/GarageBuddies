@@ -22,7 +22,7 @@ public class GarageController {
     private final GarageService garageService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Garage> showAllGarages (){
+    public List<GarageDataForUser> showAllGarages (){
         return garageService.getAllGarages();
     }
 
