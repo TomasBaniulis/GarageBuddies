@@ -34,8 +34,8 @@ public class Garage {
     private Set<Evaluation> evaluations;
     private Double evaluation;
     private Set<User> customers;
-    private Map<String, WorkPlace> workPlaces;
-    private Set<RepairPrices> priceList;
+//    private Map<String, WorkPlace> workPlaces;
+//    private Set<RepairPrices> priceList;
     private Set<CarRepair> allRepairs;
 
     public Garage(String companyCode, String vatCode, String companyName, String email, String password, String passwordRepeat, Address address, String numberOfWorkPlaces, String companyDescription) {
@@ -50,7 +50,7 @@ public class Garage {
         this.companyDescription = companyDescription;
     }
 
-    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Address address, String numberOfWorkPlaces, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Map< String, WorkPlace> workPlaces, Set<RepairPrices> priceList, Set<CarRepair> allRepairs) {
+    public Garage(ObjectId id, String companyCode, String vatCode, String companyName, String email, String password, Address address, String numberOfWorkPlaces, String companyDescription, Set<Evaluation> evaluations, Double evaluation, Set<User> customers, Set<CarRepair> allRepairs) {
         this.id = id;
         this.companyCode = companyCode;
         this.vatCode = vatCode;
@@ -63,8 +63,6 @@ public class Garage {
         this.evaluations = evaluations;
         this.evaluation = evaluation;
         this.customers = customers;
-        this.workPlaces = workPlaces;
-        this.priceList = priceList;
         this.allRepairs = allRepairs;
     }
 
@@ -81,8 +79,6 @@ public class Garage {
                 garageDocument.getEvaluations(),
                 garageDocument.getEvaluation(),
                 garageDocument.getCustomers(),
-                garageDocument.getWorkPlaces(),
-                garageDocument.getPriceList(),
                 garageDocument.getAllRepair());
     }
 }

@@ -1,13 +1,12 @@
 import Container from "@mui/material/Container";
 import Copyright from "../../forms/Copyright";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getGarages} from "../../api/garageAPI";
-import {tableCellClasses, TableContainer, Typography} from "@mui/material";
+import {CircularProgress, Rating, tableCellClasses, TableContainer, Typography} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import TableBody from "@mui/material/TableBody";
 import Table from "@mui/material/Table";
 import {useTranslation} from "react-i18next";
-import * as React from "react";
 import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
@@ -42,7 +41,8 @@ const GarageList = () => {
 
     useEffect(()=>{
         getGarages()
-            .then((data) => setGarages(data))
+            .then(({data}) => {setGarages(data);
+            console.log(data)})
             .catch((error)=>console.log(error))
             .finally(()=>setLoading(false));
         },
@@ -50,47 +50,56 @@ const GarageList = () => {
 
 
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <React.Fragment>
+            {
+                loading ? <CircularProgress/>:
+                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
-            <Typography component="h1" variant="h5">
-                {t('header')}
-            </Typography>
-            <Typography component="h1" variant="h5">
-               .
-            </Typography>
+                        <Typography component="h1" variant="h5">
+                            {t('header')}
+                        </Typography>
+                        <Typography component="h1" variant="h5">
+                            .
+                        </Typography>
 
-            <TableContainer component={ Paper }>
-                <Table sx={ {minWidth: 700} } aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>{ t('name') }</StyledTableCell>
-                            <StyledTableCell>{ t('town') }</StyledTableCell>
-                            <StyledTableCell>{ t('description') }</StyledTableCell>
-                            <StyledTableCell align="right">{ t('workPlaces') }</StyledTableCell>
-                            <StyledTableCell align="right">{ t('evaluation') }</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        { garages.map((garage) => (
-                            <StyledTableRow key={ garage.id }>
-                                <StyledTableCell component="th" scope="row">
-                                    <NavLink to={ `/garages/${ garage.id }` }>
-                                        { garage.name }
-                                    </NavLink>
-                                </StyledTableCell>
-                                <StyledTableCell>{ garage.address.town }</StyledTableCell>
-                                <StyledTableCell sx={ {maxWidth: 600} }>{ garage.companyDescription }</StyledTableCell>
-                                <StyledTableCell align="right">{ garage.numberOfWorkPlaces}</StyledTableCell>
-                                <StyledTableCell align="right">{ garage.evaluation } €</StyledTableCell>
+                        <TableContainer component={ Paper }>
+                            <Table sx={ {minWidth: 700} } aria-label="customized table">
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell>{ t('name') }</StyledTableCell>
+                                        <StyledTableCell>{ t('town') }</StyledTableCell>
+                                        <StyledTableCell>{ t('description') }</StyledTableCell>
+                                        <StyledTableCell align="right">{ t('workPlaces') }</StyledTableCell>
+                                        <StyledTableCell align="right">{ t('evaluation') }</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {garages.map((garage) => (
+                                        <StyledTableRow key={ garage.id }>
+                                            <StyledTableCell component="th" scope="row">
+                                                <NavLink to={ `/garages/${ garage.id }` }>
+                                                    { garage.companyName }
+                                                </NavLink>
+                                            </StyledTableCell>
+                                            <StyledTableCell>{ garage.address.town }</StyledTableCell>
+                                            <StyledTableCell sx={ {maxWidth: 600} }>{ garage.companyDescription }</StyledTableCell>
+                                            <StyledTableCell align="right">{ garage.numberOfWorkPlaces}</StyledTableCell>
+                                            <StyledTableCell align="right">
+                                                <Rating name="read-only" value={garage.evaluation} readOnly />
+                                            </StyledTableCell>
 
-                            </StyledTableRow>
-                        )) }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                        </StyledTableRow>
+                                    )) }
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
 
-            <Copyright sx={{ pt: 4 }} />
-        </Container>
+                        <Copyright sx={{ pt: 4 }} />
+                    </Container>
+            }
+        </React.Fragment>
+
+
     )
 
 }

@@ -34,18 +34,7 @@ public class GarageService {
 
     public GarageDataForUser showGarageToUserById (ObjectId id){
         Garage garage = getGarageById(id);
-        return new GarageDataForUser(garage.getId(),
-                garage.getCompanyCode(),
-                garage.getVatCode(),
-                garage.getCompanyName(),
-                garage.getEmail(),
-                garage.getAddress(),
-                garage.getNumberOfWorkPlaces(),
-                garage.getCompanyDescription(),
-                garage.getEvaluations(),
-                garage.getEvaluation(),
-                garage.getWorkPlaces(),
-                garage.getPriceList());
+        return GarageDataForUser.convert(garage);
     }
 
     public void deleteById (ObjectId id){
@@ -81,8 +70,8 @@ public class GarageService {
         garage.setEvaluation(evaluation);
         garage.setEvaluations(evaluations);
         garage.setCustomers(customers);
-        garage.setWorkPlaces(workPlaces);
-        garage.setPriceList(priceList);
+//        garage.setWorkPlaces(workPlaces);
+//        garage.setPriceList(priceList);
         garage.setAllRepairs(allRepairs);
 
         garageRepository.save(GarageDocument.convert(garage));

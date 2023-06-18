@@ -28,8 +28,7 @@ public class GarageDataForUser {
     private String companyDescription;
     private Set<Evaluation> evaluations;
     private Double evaluation;
-    private Map<String, WorkPlace> workPlaces;
-    private Set<RepairPrices> priceList;
+//    private Set<RepairPrices> priceList;
 
     public static GarageDataForUser convert (Garage garage){
         return new GarageDataForUser(garage.getId(),
@@ -41,9 +40,7 @@ public class GarageDataForUser {
                 garage.getNumberOfWorkPlaces(),
                 garage.getCompanyDescription(),
                 garage.getEvaluations(),
-                garage.getEvaluation(),
-                garage.getWorkPlaces(),
-                garage.getPriceList());
+                garage.getEvaluation());
     }
 }
 

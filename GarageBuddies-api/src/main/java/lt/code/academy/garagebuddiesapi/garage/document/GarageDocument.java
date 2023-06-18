@@ -36,8 +36,8 @@ public class GarageDocument {
     private Double evaluation;
     private Set<Evaluation> evaluations;
     private Set<User> customers;
-    private Map<String, WorkPlace> workPlaces;
-    private Set<RepairPrices> priceList;
+//    private Map<String, WorkPlace> workPlaces;
+//    private Set<RepairPrices> priceList;
     private Set<CarRepair> allRepair;
 
     public static GarageDocument convert (Garage garage){
@@ -54,8 +54,6 @@ public class GarageDocument {
                 garage.getEvaluation(),
                 garage.getEvaluations(),
                 garage.getCustomers(),
-                garage.getWorkPlaces(),
-                garage.getPriceList(),
                 garage.getAllRepairs());
     }
 }
