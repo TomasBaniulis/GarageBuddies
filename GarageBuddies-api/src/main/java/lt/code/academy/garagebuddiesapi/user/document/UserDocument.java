@@ -29,6 +29,7 @@ public class UserDocument {
     private String phoneNumber;
     private Address address;
     private Set<Car> cars;
+    private Integer numberOfCars;
     private Set<ObjectId> favouriteGarages;
     private Set<RepairBooking> userBookings;
     private Set<Role> roles;
@@ -45,6 +46,7 @@ public class UserDocument {
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getCars(),
+                user.getNumberOfCars(),
                 user.getFavouriteGarages(),
                 user.getUserBookings(),
                 user.getRoles(),
@@ -61,6 +63,7 @@ public class UserDocument {
                 user.getPhoneNumber(),
                 user.getAddress(),
                 user.getCars(),
+                user.getNumberOfCars(),
                 user.getFavouriteGarages(),
                 user.getUserBookings(),
                 user.getRoles(),

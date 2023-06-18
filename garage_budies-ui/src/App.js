@@ -8,7 +8,10 @@ function App() {
     return (
         <Provider store={store}>
             <Experimental_CssVarsProvider>
+                <BrowserRouter>
                     <Dashboard/>
+                </BrowserRouter>
+
             </Experimental_CssVarsProvider>
         </Provider>
     );

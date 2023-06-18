@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Content from "../../content/Content";
-import {BrowserRouter, NavLink} from "react-router-dom";
+import {BrowserRouter, NavLink, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Avatar, Badge} from "@mui/material";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -97,15 +97,17 @@ export default function Dashboard() {
         return user.notifications.length
     }}
 
+    const navigate = useNavigate();
+
     const onLogout = () => {
         dispatch(removeUser());
         dispatch(removeGarage());
+        navigate("/login");
     }
 
     const {t} = useTranslation('dashBoard');
 
     return (
-        <BrowserRouter>
         <ThemeProvider theme={defaultTheme}>
             <Box sx={{display: 'flex'}}>
                 <CssBaseline/>
@@ -235,6 +237,5 @@ export default function Dashboard() {
                 </Box>
             </Box>
         </ThemeProvider>
-        </BrowserRouter>
     );
 }

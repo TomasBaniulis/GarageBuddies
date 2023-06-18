@@ -61,6 +61,7 @@ public class UserService implements UserDetailsService {
                 "Welcome in GarageBuddies community. Hope you'll have the best experience in maintaining your vehicles. GarageBuddies team."
         ));
         user.setCars(cars);
+        user.setNumberOfCars(cars.size());
         user.setFavouriteGarages(garages);
         user.setUserBookings(bookings);
         user.setRoles(roles);
@@ -115,6 +116,7 @@ public class UserService implements UserDetailsService {
         Set<Car> cars = user.getCars();
         cars.add(car);
         user.setCars(cars);
+        user.setNumberOfCars(cars.size());
         updateUser(user);
     }
 
@@ -174,6 +176,7 @@ public class UserService implements UserDetailsService {
         User buyer = showUserByUsername(buyerUserName);
 
         buyer.getCars().add(car);
+        buyer.setNumberOfCars(buyer.getCars().size());
         updateUser(buyer);
 
         Set<Car> cars = seller.getCars().stream()
@@ -181,6 +184,7 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toSet());
 
         seller.setCars(cars);
+        seller.setNumberOfCars(cars.size());
         updateUser(seller);
     }
 

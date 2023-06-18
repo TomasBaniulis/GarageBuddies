@@ -17,7 +17,7 @@ import {useDispatch} from "react-redux";
 import {login} from "../api/userApi";
 import {addUser} from "../../store/slices/userSlice";
 import TextInputComponent from "./TextInputComponent";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const loginValidationSchema = Yup.object().shape(
@@ -37,6 +37,8 @@ const LoginPage = () => {
 
     const {t} = useTranslation('login');
 
+    const navigate = useNavigate();
+
     const onLogin = (values, helpers) => {
         login(values)
             .then(({data: data, headers}) => {
@@ -44,6 +46,10 @@ const LoginPage = () => {
                         user: data,
                         jwtToken: headers.authorization,
                     }));
+                    if(data.numberOfCars==0){
+                        navigate("/users/addCar")
+                    }
+                    navigate("/users/main")
                 }
             )
             .catch((error) => {

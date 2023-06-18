@@ -41,12 +41,13 @@ public class User implements UserDetails {
     private String phoneNumber;
     private Address address;
     private Set<Car> cars;
+    private Integer numberOfCars;
     private Set<ObjectId> favouriteGarages;
     private Set<RepairBooking> userBookings;
     private Set<Role> roles;
     private Set<Notification> notifications;
 
-    public User(ObjectId id, String name, String surname, String username, String email, String password, String phoneNumber, Address address, Set<Car> cars, Set<ObjectId> favouriteGarages, Set<RepairBooking> userBookings, Set<Role> roles, Set<Notification> notifications) {
+    public User(ObjectId id, String name, String surname, String username, String email, String password, String phoneNumber, Address address, Set<Car> cars, Integer numberOfCars, Set<ObjectId> favouriteGarages, Set<RepairBooking> userBookings, Set<Role> roles, Set<Notification> notifications) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -56,6 +57,7 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.cars = cars;
+        this.numberOfCars = numberOfCars;
         this.favouriteGarages = favouriteGarages;
         this.userBookings = userBookings;
         this.roles = roles;
@@ -72,6 +74,7 @@ public class User implements UserDetails {
                 userDocument.getPhoneNumber(),
                 userDocument.getAddress(),
                 userDocument.getCars(),
+                userDocument.getNumberOfCars(),
                 userDocument.getFavouriteGarages(),
                 userDocument.getUserBookings(),
                 userDocument.getRoles(),
