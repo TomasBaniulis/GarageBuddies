@@ -46,10 +46,9 @@ const LoginPage = () => {
                         user: data,
                         jwtToken: headers.authorization,
                     }));
-                    if(data.numberOfCars==0){
-                        navigate("/users/addCar")
-                    }
-                    navigate("/users/main")
+                    console.log("nr of cars", data.numberOfCars)
+                {data.numberOfCars==0 ? navigate("/users/addCar") : navigate("/users/main") }
+
                 }
             )
             .catch((error) => {

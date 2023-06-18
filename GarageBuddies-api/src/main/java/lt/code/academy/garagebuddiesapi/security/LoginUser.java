@@ -18,6 +18,7 @@ public class LoginUser {
     private final String phoneNumber;
     private final Address address;
     private final Set<Car> cars;
+    private final Integer numberOfCars;
     private final Set<ObjectId> favouriteGarages;
     private final Set<RepairBooking> userBookings;
     private final Set<String> roles;
@@ -32,6 +33,7 @@ public class LoginUser {
         phoneNumber = user.getPhoneNumber();
         address = user.getAddress();
         cars = user.getCars();
+        numberOfCars = user.getNumberOfCars();
         favouriteGarages = user.getFavouriteGarages();
         userBookings = user.getUserBookings();
         roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());

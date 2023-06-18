@@ -7,19 +7,36 @@ import Copyright from "../../forms/Copyright";
 import Orders from "../../Dashboard/Orders";
 import {useSelector} from "react-redux";
 import Typography from "@mui/material/Typography";
+import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 
 const UserDetailsPage = () => {
 
     const user = useSelector(state => state.user.user )
 
-    const cars = user.numberOfCars
-
 
 
     return(
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
             {
-                cars == 0 ? <Typography> YOU DON'T HAVE CARS IN YOU GARAGE TO SHOWW</Typography> :
+                user.numberOfCars == 0 ?  <Card sx={{ maxWidth: 1200 }}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                height="140"
+                                src="https://www.littlegatepublishing.com/wp-content/uploads/2015/07/Fotolia_41458681_Subscription_Monthly_M.jpg"
+                                alt="green iguana"
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="div">
+                                    YOU DON'T HAVE ANY CARS IN YOU GARAGE TO SHOW
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                    Please use car registration form to add you first vehicle to you GarageBuddies garage.
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card> :
                     <Grid container spacing={3}>
                         {/* Chart */}
                         <Grid item xs={12} md={8} lg={9}>

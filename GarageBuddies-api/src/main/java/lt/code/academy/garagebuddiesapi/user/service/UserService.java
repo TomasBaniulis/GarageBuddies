@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
         notifications.add(new Notification(
                 UUID.randomUUID().toString(),
                 "CONGRATS ON REGISTRATION",
-                "Welcome in GarageBuddies community. Hope you'll have the best experience in maintaining your vehicles. GarageBuddies team."
+                "Welcome in GarageBuddies community. Hope you'll have the best experience in maintaining your vehicles. GarageBuddies team.",LocalDate.now()
         ));
         user.setCars(cars);
         user.setNumberOfCars(cars.size());
@@ -117,6 +117,9 @@ public class UserService implements UserDetailsService {
         cars.add(car);
         user.setCars(cars);
         user.setNumberOfCars(cars.size());
+        user.getNotifications().add(new Notification( UUID.randomUUID().toString(),
+                "SUCCESSFUL CAR REGISTRATION",
+                "Car registration was successful,  enjoy all features of our app",LocalDate.now()));
         updateUser(user);
     }
 
@@ -137,7 +140,8 @@ public class UserService implements UserDetailsService {
         Notification notification = new Notification(
                 UUID.randomUUID().toString(),
                 header,
-                text);
+                text,
+                LocalDate.now());
 
         User user = showUserById(userId);
         user.getNotifications().add(notification);

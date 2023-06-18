@@ -29,7 +29,7 @@ export default function Deposits() {
             </Typography>
             {/*<Typography color="text.secondary" sx={{ flex: 1 }}>*/}
             {/*</Typography>*/}
-            <Title>Next Texnical Inspection:</Title>
+            <Title>Next technical inspection:</Title>
             <Typography component="p" variant="h4">
                 {car.technicalInspectionDate}
             </Typography>

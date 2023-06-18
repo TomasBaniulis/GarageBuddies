@@ -178,13 +178,13 @@ export default function Dashboard() {
                                 </ListItemIcon>
                                 <ListItemText primary={t('cars')}/>
                             </ListItemButton>
-                            <ListItemButton>
+                            <ListItemButton component={NavLink} to="/garages/list">
                                 <ListItemIcon>
                                     <BuildIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={t('garages')}/>
                             </ListItemButton>
-                            <ListItemButton>
+                            <ListItemButton component={NavLink} to="/users/notifications">
                                 <ListItemIcon>
                                     <Badge badgeContent={messages(user)} color="secondary">
                                     <NotificationImportantIcon />
