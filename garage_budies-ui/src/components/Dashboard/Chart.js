@@ -17,7 +17,7 @@ export default function Chart() {
         <React.Fragment>
             <Title>Vehicle data:</Title>
 
-            <Typography component="p" variant="h4">
+            <Typography component="p" variant="h4" sx={{mb:3}}>
                 {car.make} {car.model}
             </Typography>
 

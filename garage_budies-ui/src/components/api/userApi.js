@@ -8,6 +8,8 @@ const login = (data) => HTTP.post('/login', data);
 const addCarToUserGarage = (data, userId) => HTTP.post(`/users/${userId}/addCar`, data);
 const getCarDetails = () => HTTP.get('/users/main');
 
+const deleteNotification = ( messageId, userId) => HTTP.delete(`/users/${userId}/notifications/${messageId}`);
+
 export {
     getUser,
     saveUser,
@@ -15,5 +17,6 @@ export {
     deleteUser,
     login,
     addCarToUserGarage,
-    getCarDetails
+    getCarDetails,
+    deleteNotification
 }

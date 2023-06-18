@@ -58,11 +58,8 @@ const GarageList = () => {
                         <Typography component="h1" variant="h5">
                             {t('header')}
                         </Typography>
-                        <Typography component="h1" variant="h5">
-                            .
-                        </Typography>
 
-                        <TableContainer component={ Paper }>
+                        <TableContainer component={ Paper } sx={{mt:3}}>
                             <Table sx={ {minWidth: 700} } aria-label="customized table">
                                 <TableHead>
                                     <TableRow>

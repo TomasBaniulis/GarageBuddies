@@ -62,8 +62,12 @@
     "name": "Serviso pavadinmas",
     "town": "Miestas",
     "workPlaces": "Darbo vietų skaičius",
-    "evaluation": "Įvertinimas 5*",
+    "evaluation": "Įvertinimas",
     "header": "AUTOBIČIULIŲ PATVIRTINTI AUTO SERVISAI",
     "description": "Aprašymas"
+  },
+  "notifications": {
+    "notifications": "PRANEŠIMAI",
+    "delete": "IŠTRINTI PRANEŠIMĄ"
   }
 }

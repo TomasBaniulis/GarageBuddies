@@ -45,8 +45,10 @@ const LoginPage = () => {
                     dispatch(addUser({
                         user: data,
                         jwtToken: headers.authorization,
+                        notifications:data.notifications
                     }));
                     console.log("nr of cars", data.numberOfCars)
+                console.log("notifications:", data.notifications)
                 {data.numberOfCars==0 ? navigate("/users/addCar") : navigate("/users/main") }
 
                 }
@@ -77,7 +79,7 @@ const LoginPage = () => {
                             sm={4}
                             md={7}
                             sx={{
-                                backgroundImage: 'url(https://scontent.fvno7-1.fna.fbcdn.net/v/t1.18169-9/29594652_1954199954654972_1810066133396071461_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=730e14&_nc_ohc=p7K5UlqW2N4AX9-iYr2&_nc_ht=scontent.fvno7-1.fna&oh=00_AfANKzRVxirMgoAUW_GZNyVTbaGpKh14udvIKR3oUk5UGg&oe=64AD9A34)',
+                                backgroundImage: 'url(http://speedhunters-wp-production.s3.amazonaws.com/wp-content/uploads/2023/05/04231855/2023-Luftgekult-9_Trevor-Ryan-Speedhunters_004-1200x800.jpg)',
                                 backgroundRepeat: 'no-repeat',
                                 backgroundColor: (t) =>
                                     t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -146,7 +148,7 @@ const LoginPage = () => {
                                                 </Link>
                                             </Grid>
                                             <Grid item>
-                                                <Link component={NavLink} to="/users/register" variant="body2">
+                                                <Link component={NavLink} to="/users" variant="body2">
                                                     {t('dontHaveAcc')}
                                                 </Link>
                                             </Grid>

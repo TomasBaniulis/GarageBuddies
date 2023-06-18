@@ -12,8 +12,8 @@ import java.util.UUID;
 @Getter
 public class Notification {
     private final String id;
-    private final String Header;
-    private final String NotificationText;
+    private final String header;
+    private final String notificationText;
     private final LocalDate date;
 
 }

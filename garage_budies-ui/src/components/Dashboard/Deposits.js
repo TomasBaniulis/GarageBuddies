@@ -24,12 +24,10 @@ export default function Deposits() {
     return (
         <React.Fragment>
             <Title>Mileage:</Title>
-            <Typography component="p" variant="h4">
+            <Typography component="p" variant="h4" sx={{mb:3}}>
                  {km} km
             </Typography>
-            {/*<Typography color="text.secondary" sx={{ flex: 1 }}>*/}
-            {/*</Typography>*/}
-            <Title>Next technical inspection:</Title>
+            <Title>Next TUV inspection:</Title>
             <Typography component="p" variant="h4">
                 {car.technicalInspectionDate}
             </Typography>

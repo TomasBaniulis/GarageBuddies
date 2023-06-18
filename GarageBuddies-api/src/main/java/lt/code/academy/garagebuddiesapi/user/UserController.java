@@ -2,6 +2,7 @@ package lt.code.academy.garagebuddiesapi.user;
 import lombok.AllArgsConstructor;
 import static lt.code.academy.garagebuddiesapi.EndPoint.*;
 
+import lt.code.academy.garagebuddiesapi.EndPoint;
 import lt.code.academy.garagebuddiesapi.data.Car;
 import lt.code.academy.garagebuddiesapi.data.CarRegistrationData;
 import lt.code.academy.garagebuddiesapi.data.RepairBooking;
@@ -15,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -66,6 +68,14 @@ public class UserController {
     public void deleteUser (@PathVariable(userId) ObjectId id){
         userService.deleteUser(id);
     }
+
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping(MESSAGE_DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMessage ( @PathVariable(userId) ObjectId id, @PathVariable(messageId) String messId){
+        userService.deleteNotification(id, messId);
+    }
+
 
 
 

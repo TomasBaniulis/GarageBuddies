@@ -18,7 +18,7 @@ import java.util.Set;
 @Getter
 public class GarageDataForUser {
 
-    private ObjectId id;
+    private String id;
     private String companyCode;
     private String vatCode;
     private String companyName;
@@ -31,7 +31,7 @@ public class GarageDataForUser {
 //    private Set<RepairPrices> priceList;
 
     public static GarageDataForUser convert (Garage garage){
-        return new GarageDataForUser(garage.getId(),
+        return new GarageDataForUser(garage.getId().toString(),
                 garage.getCompanyCode(),
                 garage.getVatCode(),
                 garage.getCompanyName(),

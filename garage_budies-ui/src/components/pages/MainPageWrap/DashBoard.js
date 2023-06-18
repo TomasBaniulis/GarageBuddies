@@ -141,7 +141,8 @@ export default function Dashboard() {
                         </Typography>
                         {
                             user ? <>
-                                < div>{user.name} .</div>
+                                < Typography sx={{mr:1}}>{user.name} </Typography>
+                                <Typography sx={{mr:3}}>{user.surname}</Typography>
                                 <Avatar
                                     alt={user.name}
                                     src="https://youprobablyneedahaircut.com/wp-content/uploads/2021/11/shutterstock_1620107944-720x540.jpg.webp"
@@ -166,32 +167,32 @@ export default function Dashboard() {
                     <Divider/>
                     <List component="nav">
                         <React.Fragment>
-                            <ListItemButton component={NavLink} to="/users/main">
+                            { user && <ListItemButton component={NavLink} to="/users/main">
                                 <ListItemIcon>
                                     <DashboardIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={t('main')}/>
-                            </ListItemButton>
-                            <ListItemButton component={NavLink} to="/users/addCar">
+                            </ListItemButton>}
+                            { user && <ListItemButton component={NavLink} to="/users/addCar">
                                 <ListItemIcon>
                                     <DriveEtaIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={t('cars')}/>
-                            </ListItemButton>
-                            <ListItemButton component={NavLink} to="/garages/list">
+                            </ListItemButton> }
+                            { user && <ListItemButton component={NavLink} to="/garages/list">
                                 <ListItemIcon>
                                     <BuildIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary={t('garages')}/>
-                            </ListItemButton>
-                            <ListItemButton component={NavLink} to="/users/notifications">
+                            </ListItemButton>}
+                            { user &&<ListItemButton component={NavLink} to="/users/notifications">
                                 <ListItemIcon>
                                     <Badge badgeContent={messages(user)} color="secondary">
-                                    <NotificationImportantIcon />
+                                        <NotificationImportantIcon />
                                     </Badge>
                                 </ListItemIcon>
                                 <ListItemText primary={t('notification')}/>
-                            </ListItemButton>
+                            </ListItemButton>}
 
                         </React.Fragment>
                         <Divider sx={{my: 1}}/>

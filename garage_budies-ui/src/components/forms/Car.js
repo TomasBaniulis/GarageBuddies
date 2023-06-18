@@ -12,6 +12,7 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {DateField, LocalizationProvider} from "@mui/x-date-pickers";
 import {useSelector, useStore} from "react-redux";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const carValidationSchema = Yup.object().shape(
     {
@@ -46,12 +47,14 @@ const Car = () => {
     const user = useSelector(state => state.user.user)
     const [showError, setShowError] = useState(false);
     const {t} = useTranslation('car')
+    const navigate = useNavigate();
 
     const onRegisterCar = (values, helpers) => {
         console.log("test:", values, user.id)
         addCarToUserGarage(values, user.id)
             .then((response) => {
                 helpers.resetForm();
+                navigate('/users/main')
             })
             .catch((err) => {
                 console.log(err);
