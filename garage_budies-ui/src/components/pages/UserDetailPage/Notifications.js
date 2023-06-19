@@ -10,6 +10,7 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import {useTranslation} from "react-i18next";
 import {addUser, deleteMessage} from "../../../store/slices/userSlice";
 import {deleteNotification, getUser} from "../../api/userApi";
+import {useState} from "react";
 
 
 const Notifications = () => {
@@ -25,11 +26,17 @@ const Notifications = () => {
     console.log(messages)
     console.log(userId)
 
+    const [msg, setMsg] = useState(messages)
+
+
     const onDelete = (messageId, userId) => {
         console.log("message id to delete",messageId);
         console.log("user id to delete from:",userId);
         deleteNotification(messageId, userId)
-            .then(response=>dispatcher(deleteMessage(messageId)))
+            .then(response=>{
+                const updatedMessages = msg.filter(m=>!m.id===messageId);
+                setMsg(updatedMessages);
+            })
             .catch((error)=>console.log(error))
             .finally()
 
@@ -40,7 +47,7 @@ const Notifications = () => {
             <Typography component="h1" variant="h5">
                 {t('notifications')}
             </Typography>
-            {messages.map((message) => (
+            {msg.map((message) => (
                     <Card key ={message.id} sx={{ maxWidth: 1200, mt:5 }}>
                         <CardActionArea>
                             <CardMedia

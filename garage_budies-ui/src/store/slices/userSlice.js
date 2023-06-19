@@ -27,8 +27,7 @@ const userSlice = createSlice(
             deleteMessage(state,{payload:messageId} ){
                 console.log("message id in action to delete in slice", messageId)
                 console.log("messages:",state.notifications)
-                return state.notifications.filter(n => !n.id===messageId);
-
+                return state.push(state.notifications.filter(n => !n.id===messageId))
             }
         }
     }
